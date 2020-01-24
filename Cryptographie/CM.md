@@ -78,3 +78,19 @@ On substitue les lettres par des symboles issue de la croix de Malte.
 
   Dans chaque langue, certaines lettres ou des combinaisons de lettres apparaissent avec une certaines fréquence
 
+**Conclusion :** Le chiffrement par substitution mono alphabétique est très fragile
+
+-> Comment résister à l'analyse des fréquences
+
+Quelque alternatives peu efficaces :
+
+- Mal orthographier le message clair 
+- Remplacer chaque mot par un autre mot ou symbole
+
+Des solutions plus sérieuses 
+
+- Substitution homophoniques (Remplacer une lettre par un nombre de symboles proportionnel à la fréquence d'apparition de la lettre)
+
+## Chiffre de Vigenères
+
+On utilise plusieurs alphabet de cryptage.
