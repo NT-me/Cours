@@ -51,7 +51,7 @@ Eff = \frac{Acc}{C}
 $$
 
 $$
-Acc = \frac{A}{(1-F_a)+\frac{F_a}{a}}
+Acc = \frac{1}{(1-F_a)+\frac{F_a}{a}}
 $$
 
 Si `Eff`:
