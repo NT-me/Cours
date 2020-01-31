@@ -177,5 +177,8 @@ c_0 = 1
 $$
 
 
-L'addition et la soustraction modulo 2 sont la même opération 
-
+**Exemple chiffrer la lettre 'A' ASCII *1000001* ** :
+$$
+m_6 \ m_5 \ \ m_0 = 1000001 \\
+s_6 \ s_5 \ \ s_0 \ \ \ \ \ = 0011001 
+$$
