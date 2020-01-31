@@ -123,3 +123,59 @@ La clef est définie par :
 ordre des rotors + positions de départ des rotors
 ```
 
+## Cryptographie symétrique
+
+Deux grandes familles de chiffrement symétrique  
+
+-  Chiffrement à flot
+- Chiffrement par blocs
+
+### Chiffrement à flot
+
+```mermaid
+graph LR;
+	Télphone -.-> Antenne;
+```
+
+$$
+e_K(m)= c → d_k(c) = m
+$$
+
+
+
+La voix est transmise de façon digirale et la communication est chiffrée avec chiffrement à flot
+
+**Idée :** Les bits sont chiffrées un par un donc le nom vient du flux de bits qui arrivent et qui sont chiffrés au fur et à mesure.
+
+**Chiffrement :** 
+$$
+c_i = m_i + s_i \ mod \ 2 \\ s_i \ suite \ chiffrante
+$$
+**Déchiffrement :**
+$$
+m_i = c_i \ mod \ 2
+$$
+
+
+Je veux chiffrer un message :
+$$
+m = (m_0, m_1, m_2 \}  m_i \in \{0, 1\},  i \ge 0
+$$
+en un message chiffré :
+$$
+c= (c_0, c_1, c_2, ... \} \ c_i \in \{0, 1\}
+$$
+à l'aide d'une suite chiffrante :
+$$
+s = (s_0, s_1, ...)
+$$
+**Exemple :** 
+$$
+c_0 = m_0 + s_0 \ mod \ 2 \\
+m_0 = 0, \ s_O = 1 \\
+c_0 = 1
+$$
+
+
+L'addition et la soustraction modulo 2 sont la même opération 
+
