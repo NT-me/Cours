@@ -94,3 +94,32 @@ Des solutions plus sérieuses
 ## Chiffre de Vigenères
 
 On utilise plusieurs alphabet de cryptage.
+
+## Enigma
+
+Pendant la première guerre mondiale le manque de chiffrement efficace créer un gros problème lors des communications sensibles.
+
+Enigma inventée en 1918 par Arthur Scherbius et dont le premier modèle fut exposé en 1923 à Berlin.
+
+**Partie principale :**
+
+- Clavier
+- Tableau lumineux
+- Rotors
+- Tableau de connexion
+- Réflecteur
+
+### Simulateur :
+
+https://observablehq.com/@tmcw/enigma-machine
+
+Une machine à trois rotors peut chiffrer avec 26³ alphabets différents.
+
+### La clef
+
+La clef est définie par :
+
+```
+ordre des rotors + positions de départ des rotors
+```
+

@@ -87,7 +87,7 @@ $$
 $$
 
 $$
-freq = \frac{1}{Durée \ cycle} = \frac{1}{5*10^{-9}s} = \frac{10^6}{5*10^{-3}}MHz = \frac{1000}{ 5}MHz 
+freq = \frac{1}{Durée \ cycle} = \frac{1}{5*10^{-9}s} = \frac{10^6}{5*10^{-3}}MHz = \frac{1000}{ 5}MHz
 $$
 
 Les instructions sont différentes => ont des temps d'exécution différents.
