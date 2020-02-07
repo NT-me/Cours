@@ -288,3 +288,35 @@ Pratiquement tous les PRNG utilise de nos jours pour le chiffrement à flot sont
 
 ![https://upload.wikimedia.org/wikipedia/commons/9/99/Lfsr.gif](https://upload.wikimedia.org/wikipedia/commons/9/99/Lfsr.gif)
 
+Ou sous forme de formule :
+$$
+S_{i+3} = S_{i+1} \oplus S_i \text{Pour tout } i \ge 0
+$$
+
+
+**Description générale d'un LFSR :**
+$$
+C_0, C_1 \ \ C_{n-1} \in \text{{0, 1}} \\
+C_i = 0  \ \text{On XOR le bit }S_i \\
+C_i = 1 \ \text{On ne XOR pas le bit }S_I 
+$$
+Valeurs initiales S0, S1, ..., Sm-1 :
+$$
+S_m = S_0C_0 \oplus S_1C_1 \oplus ... \oplus S_{n-1}C_{n-1} 
+$$
+
+$$
+S_{m+i} = \oplus^{m-1}_{i=0} S_{i+j} \ C_j
+$$
+
+*Exemple :* m=4
+$$
+C_3 = C_2 = 0, C_1 = C_0 = 1 \\
+\text{Période }= 2^4 - 1 = 15
+$$
+
+
+*Exemple :* m=4
+$$
+C_3 = C_2 = C_1 = C_0 = 1 \\\text{Période }= 5
+$$
