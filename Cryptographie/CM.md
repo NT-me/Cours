@@ -260,3 +260,31 @@ Inconvénients de l'OTP :
 1. La suite chiffrante doit être aussi longue que le message a chiffré (problèmes de temps et de mémoire)
 2. La suite ne peut être utilisée qu'une seule fois
 3. La suite doit être transmise
+
+```mermaid
+graph LR;
+    A --> B;
+    B -- S --> C;
+    C -- C --> D;
+    E -- S --> D;
+    F --> E;
+    M --> C;
+    
+    A(K)
+    B[PRNG]
+    C((XOR))
+    D((XOR))
+    E[PRNG]
+    F(K)
+```
+
+Alice et Bob doivent se mettre d'accord sur la clé secrète
+
+**Toute la sécurité repose sur la qualité du PRNG**
+
+Pratiquement tous les PRNG utilise de nos jours pour le chiffrement à flot sont basés sur des registres à décalage à rétroaction linéaire.
+
+#### Registre à décalage à rétroaction linéaire (LFSR)
+
+![https://upload.wikimedia.org/wikipedia/commons/9/99/Lfsr.gif](https://upload.wikimedia.org/wikipedia/commons/9/99/Lfsr.gif)
+
