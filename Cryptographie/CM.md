@@ -176,9 +176,87 @@ m_0 = 0, \ s_O = 1 \\
 c_0 = 1
 $$
 
-
 **Exemple chiffrer la lettre 'A' ASCII *1000001* ** :
 $$
 m_6 \ m_5 \ \ m_0 = 1000001 \\
-s_6 \ s_5 \ \ s_0 \ \ \ \ \ = 0011001 
+s_6 \ s_5 \ \ s_0 \ \ \ \ \ = 0011001
 $$
+
+![https://fracademic.com/pictures/frwiki/83/Schema_ofb.png](https://fracademic.com/pictures/frwiki/83/Schema_ofb.png)
+
+**Question** comment générer la suite chiffrante *s* ?
+
+La suite s doit ressembler à une suite aléatoire
+
+1. Vrais générateurs basés sur des phénomènes imprévisibles
+
+   - Dés, pile ou face,loto, bruit thermique, mouvement de la souris, frappes sur le clavier. L'inconvénient c'est que c'est très lent, il n'est pas possible de reproduire exactement la même suite chiffrante.
+
+2. Générateurs de nombre pseudo-aléatoire (PRNG)
+
+   Suite qui ont l'air aléatoire calculé de façon déterministe qu'on peut reproduire. En général ells sont des bonnes propriétés statistiques.
+
+   Calculés récursivement à partir d'une valeur initiale, la graine.
+   $$
+   S_0 = \ graine \\
+   S_{i+1} = f(S_i) \ i \ge 0
+   $$
+   
+
+*Exemple :* `rand()` de C
+$$
+S_0= 12345 \\
+S_{i+1} = 1103515245 \ S_i + 12345 \ mod \ 2^{31}
+$$
+
+3. Générateurs de nombres aléatoires cryptographiquement sûrs.
+
+   Ce sont des **PRNG** mais qui sont imprévisibles.
+
+*Définitions :* 
+
+> Une suite s est dite imprévisible si étant n bits générés Si, Si+1,... Si+n il est calculatoirement impossible de prédire Sn.
+
+> Un chiffrement est dit "inconditionnellement sûr" ou "parfait ". S'il ne peut pas être cassé même si l'attaquant possède des ressources de calcul infinis.
+>
+> Claude Shannon - 1949 
+
+Un tel chiffrement existe et s'appelle "chiffre de Vernam", ou "Masque jetable" ou "One-Time-Pad (OTP)"
+
+Définition de l'**OTP** :
+
+> L'OTP est un chiffrement à flot où :
+>
+> 1. La suite chiffrante s est générée avec avec un vrai générateur aléatoire
+> 2. Chaque suite n'est utilisé qu'une seule fois.
+
+$$
+c = m \oplus s
+$$
+
+
+
+*Exemple :* 
+$$
+2 \ bits \\
+c = 10
+\\
+S_1 = 00, \ S_2 = 01, \ S_3 = 10, \ S_4 = 11 \\
+\\
+c \oplus S_1 = 10 \\
+c \oplus S_2 = 11 \\
+c \oplus S_3 = 00 \\
+c \oplus S_4 = 01 \\
+$$
+
+$$
+c_1 = m_1 \oplus s \\
+c_2 = m_2 \oplus s \\
+c_1 \oplus c_2 = m_1 \oplus s \oplus m_2 \oplus s = m_1 \oplus m_2
+$$
+
+Inconvénients de l'OTP :
+
+1. La suite chiffrante doit être aussi longue que le message a chiffré (problèmes de temps et de mémoire)
+2. La suite ne peut être utilisée qu'une seule fois
+3. La suite doit être transmise
