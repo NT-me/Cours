@@ -474,3 +474,14 @@ Bloc chiffré :
 $$
 C=(C_0, R_0) = (L_{r+1}, R_{r+1})
 $$
+
+##### Propriété d'un réseau de Feistel
+
+Déchiffrement avec :
+$$
+k=(k_1, k_2,..., k_r)
+$$
+est également au chiffrement avec
+$$
+k'=(k_r, ..., k_1)
+$$
