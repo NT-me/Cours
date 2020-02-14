@@ -334,3 +334,87 @@ $$
 F:\{0,1\}^n * \{0,1\}^k -> \{0,1\}^h \\
 (m,k) -> c=F(m,k)
 $$
+
+
+Deux paramètres importants :
+
+- La taille de blocs **n** *64 bits ou 128 bits* 
+- La taille de la clef **K** *80-256 bits*
+
+La taille de la clef doit être telle qu'une recherche exhaustive ne soit pas disponible.
+
+#### Comment construire un chiffrement par blocs ? (Construction de la fonction F)
+
+Itérer une fonction de tour **F**, plusieurs fois.
+
+La clé que Alice et Bob ont échangé est appelée la "clef maître"
+
+```mermaid
+graph LR;
+	A --> B;
+	B --> C;
+	C --> D;
+	D --> E;
+	E --> F;
+	F --> G;
+	B -- R tours --> F;
+	H --> B;
+    H --> C;
+    H --> D;
+    H --> E;
+    H --> F;
+	
+A((m))
+B[F]
+C[F]
+D[F]
+E[...]
+F[F]
+G((C))
+H[Cadencement de clés]
+
+	
+	
+
+```
+
+Un algorithme de cadencement de clés est une fonction qui prend en entrée la clé maître K et produit en sortie une suite de sous clés K1, ..., Kr.
+
+> **Exemple "simple" de cadencement de clé**
+> $$
+> K = (K_0,...,K_{127}) K_i \in \{0,1\} \\
+> K_1 = (K_1, K_2, ..., K_{127}, K_0) \\
+> K_2 = (K_2, ..., K_{127}, K_0, K_1)
+> $$
+
+**Avantages :**
+
+1. Implémentation compacte.
+2. Analyse de sécurité plus simple.
+
+#### Comment construire la fonction de tour F ?
+
+Principes de confusion et de diffusion (Claude Shannon)
+
+"Communication Theory of Secrecy Systems" 1949
+
+##### Confusion
+
+Rendre les relations entre les bits de la clé, les bits du message clair et les bits du message chiffré le plus complexe possible.
+
+> **Exemple :**
+> $$
+> \text{Clé secrète }K=(K_1, K_2, K_3, K_4) \ K_i \in \{0,1\} \\
+> \text{Message clair }m=(m_1, m_2, m_3, m_4) \ m_i \in \{0,1\} \\
+> \text{Message chiffré }c=(c_1, c_2, c_3, c_4) \ c_i \in \{0,1\}
+> $$
+>
+> $$
+> c_1 = m_1 \oplus m_2 \oplus  K_1 \oplus K_2 \\
+> c_2 = m_2 \oplus m_3 \oplus  K_2 \oplus K_3 \\
+> c_3 = m_3 \oplus m_4 \oplus  K_3 \oplus K_4 \\
+> c_4 = m_4 \oplus m_3 \oplus  K_4 \oplus K_1 \\
+> $$
+>
+> 
+
