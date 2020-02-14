@@ -398,7 +398,7 @@ Principes de confusion et de diffusion (Claude Shannon)
 
 "Communication Theory of Secrecy Systems" 1949
 
-##### Confusion
+##### La confusion
 
 Rendre les relations entre les bits de la clé, les bits du message clair et les bits du message chiffré le plus complexe possible.
 
@@ -418,3 +418,59 @@ Rendre les relations entre les bits de la clé, les bits du message clair et les
 >
 > 
 
+Ce système n'est pas bon pour le principe de confusion car il est linéaire, donc pas complexe.
+
+Pour assurer la confusion il faut assurer la non linéarité.
+
+En pratique, pour assurer la linéarité la plupart du temps on utilise des fonctions appelés "Boites-S"  .
+
+> **Exemple de boite S :**
+> $$
+> S \{0,1\}^4 -> \{0,1\}^4
+> $$
+>
+> | x        | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   | 14   | 15   |
+> | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+> | **S(x)** | 8    | 6    | 7    | 9    | 3    | 12   | 10   | 15   | 13   | 1    | 14   | 4    | 0    | 11   | 5    | 2    |
+
+##### La diffusion 
+
+Chaque bit du texte clair et chaque bit de la clé  dovent avoir une influence sur une grande partie du texte chiffré.
+
+>**Exemple :**
+>$$
+>C_0 = m_0 \oplus k_0 \\
+>C_0 = m_1 \oplus k_1 \\
+>C_0 = m_2 \oplus k_2 \\
+>C_0 = m_3 \oplus k_3 \\
+>$$
+>
+
+Pour assurer la diffusion on utilise des fonctions linéaires.
+
+Chiffrement par produit (Claude Shannon)
+
+Combiner la diffusion et la confusion pour assurer un chiffrement robuste
+
+#### Réseau de Feistel
+
+Introduit par Horst Feistel au début des années 1980.
+
+Couper en deux le bloc de message clair m=(L_0, R_0)
+
+![https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/R%C3%A9seau_de_feistel.png/300px-R%C3%A9seau_de_feistel.png](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/R%C3%A9seau_de_feistel.png/300px-R%C3%A9seau_de_feistel.png)
+
+Pour chaque tour i = 0, r = 1 faire :
+
+- $$
+  L_{i+1}=R_i \\
+  $$
+
+- $$
+  R_{i+1}=L_i \oplus F(K_{i-1}, R_1)
+  $$
+
+Bloc chiffré :
+$$
+C=(C_0, R_0) = (L_{r+1}, R_{r+1})
+$$
