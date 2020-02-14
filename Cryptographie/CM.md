@@ -320,3 +320,17 @@ $$
 $$
 C_3 = C_2 = C_1 = C_0 = 1 \\\text{Période }= 5
 $$
+
+
+
+### Chiffrement par bloc
+
+Dans ce système, le texte clair est découpé en blocs de taille fixe et chiffré bloc par bloc.
+
+![https://upload.wikimedia.org/wikipedia/commons/a/a6/Schema_ecb.png](https://upload.wikimedia.org/wikipedia/commons/a/a6/Schema_ecb.png)
+
+On traite donc chaque bloc l'un après l'autre.
+$$
+F:\{0,1\}^n * \{0,1\}^k -> \{0,1\}^h \\
+(m,k) -> c=F(m,k)
+$$
