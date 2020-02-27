@@ -307,6 +307,26 @@ Pour l'identification d'un registre parmi l'ensemble, plusieurs solutions sont u
 Composant réservé exclusivement au calcul. Il a en entrée au maximum deux opérandesvalides et des signaux de contrôle lui indiquant l'opération à effectuer.
 Il fournit en sorte le résultat de l'opération. Les entrées et les sorties DATA sont de même taille qui est celle du machine, 16 bits dans notre as.
 
+##### Mémoire :
+
+Support de stockage pour stocker l'infirmation binaire, qu'elle soit une donnée (entier, réel, texte...) une adresse (exp. pointeur) ou une instruction.
+
+###### Fonctionnement :
+
+Exécution d'une instruction en 5 étapes
+
+1. IF: Instruction Fetch
+2. ID/RF: Instruction decode/ regsiters fecth
+3. EX: Execution (dans le sens calcul)
+4. MEM : Memory Acess (éventuellement)
+5. WB : Write Back
+
+
+
+|                   IF                    |                            ID/RF                             |                            EX                            |                             MEM                              |                             WB                             |
+| :-------------------------------------: | :----------------------------------------------------------: | :------------------------------------------------------: | :----------------------------------------------------------: | :--------------------------------------------------------: |
+| Phase commune à toutes les instructions | Phase commune<br />- Générer les signaux de CTRL<br />- Préparer les opérations | Calcul :<br />- Opération de calcul -> res<br />- Calcul | - Phase valide pour le LW/SW<br /> - (NOP pour les autres instructions) | - Écriture des résultats dans le regsitre (op, calcul, LW) |
+
 
 
 ## Pipeline
