@@ -203,6 +203,112 @@ Les processeurs sont classés par rapport à leurs jeux d'instructions, qui peuv
 
 ## Processeur RISC
 
+### Construction du d'instruction RISC
+
+Instruction `= {opcode, opérandes}`
+
+#### Construction de l'opcode
+
+- 3 catégories d'instructions : ALU, Mem, Ctrl -> 2 bits pour les coder.
+
+  Exemple : ALU = 00, MEM = 01, Ctrl = 10.
+
+- La catégorie AlU compte le plus d'instructions (7) -> 3 bits pour coder l'instruction au de la catégorie
+
+**Conclusion :** 5 bits pour le codage
+
+**Exemple **de construction d'un jeu d'instructions :
+
+Opcode :
+
+- Instruction ALU (arithmétique ou logarithmique) -> Catégorie ALU
+- Accès mémoire -> Catégorie MEM
+- CTRL -> Catégorie CTRL
+
+Il y a donc 3 catégories -> 2 bits suffisent pour les coder
+
+Catégorie ALU -> 7 instructions -> 3 bits pour les coder
+
+Catégorie mémoire -> 3 instructions -> 2 bits pour les coder
+
+Catégorie CTRL -> 2 instructions -> 1 bit pour les coder 
+
+Max 3 bits.
+
+Le nombre d'instructions -> La taille de l'opcode (5 instructions)
+
+On utilise le reste du RI pour coder les opérandes
+
+##### **Les opérandes :**
+
+###### Catégorie ALU
+
+```asm
+ADD R1 R2 R3
+SLT R1 R2 R3
+AND R1 R2 R1
+```
+
+Toujours le format 3 numéros de registre
+
+11 bits pour coder 3 numéros de registre -> 3 bts pour le numéro de registre
+
+**-> On a  au max 2³ registres à usage général **
+
+###### Catégorie Mémoire
+
+Format des opérandes :
+
+2 numéros de registres et un déplacement *(sw, lw)* -> depl = 11 bits - 6 bits = 5 bits
+
+1 numéro de registre et une valeur *(Li)*
+
+- Valeur sur (11 bits - 3 bits) = 8 bit. La valeur appartient **[-2⁸, ..2⁸ - 1]**
+
+"*déplacement*" Peut être :
+
+​	Positif ou relatif, sur 5 bits, il appartient **[-2⁵, .. 2⁵ -1]**.
+
+###### Catégorie CTRL :
+
+*jump :* 1 numéro de registre + déplacement : déplacement (Positif ou négatif) sur *11 bits - 3 bits = 8 bits* 
+
+*BNEZ* : 2 numéro de registre + déplacement : déplacement (positif ou négatif) sur *11 bits - 6 bits = 5 bits*
+
+Écriture de l'opcode :
+
+| 0, 0 | 0, 1, 1 | -> Opcode de SLT      |
+| ---- | ------- | --------------------- |
+| 0, 1 | 0, 0, 0 | **-> Opcode de LW**   |
+| 1, 0 | 0, 0, 0 | **-> Opcode de jump** |
+
+**ALU :**
+
+AND -> 0 -> 0 0 0
+
+OR -> 1 -> 0 0 1
+
+ADD -> 2 -> 0 1 0
+
+SLT -> 3 -> 0 1 1
+
+NUL -> 4 -> 1 0 0
+
+#### **Banc de registre :**
+
+C'est un ensemble de n regsitres de même taille, regroupés et numérotés de 0 à n-1
+
+Une instruction spécifie quel registre est à lire (resp. écrire) et le banc fournit (resp. inscrit) le mot contenu (resp. fournit) dans le registre en question.
+
+Pour l'identification d'un registre parmi l'ensemble, plusieurs solutions sont utilisées : les multiplexeurs, les décodeurs et tristates entre autres.
+
+###### Unité arithmétique et logique :
+
+Composant réservé exclusivement au calcul. Il a en entrée au maximum deux opérandesvalides et des signaux de contrôle lui indiquant l'opération à effectuer.
+Il fournit en sorte le résultat de l'opération. Les entrées et les sorties DATA sont de même taille qui est celle du machine, 16 bits dans notre as.
+
+
+
 ## Pipeline
 
 ## Machines superscalaires
