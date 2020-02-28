@@ -486,4 +486,14 @@ $$
 k'=(k_r, ..., k_1)
 $$
 
+#### Data encryption Standard (DES)
 
+- 1973 : Le national Bureau of standards (NBS) américain demande la création d'un algorithme de chiffrement pour des applications commerciales.
+- IBM : Propose Lucifer conçu en 1971 par Horst Feistel
+- DES est crée et devient un standard en 1977 (FIPS PUB 46)
+
+Taille de blocs 64 bit
+
+Taille de clé de 56 bits.
+
+![https://www.tutorialspoint.com/cryptography/images/des_structure.jpg](https://www.tutorialspoint.com/cryptography/images/des_structure.jpg)
