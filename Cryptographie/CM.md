@@ -496,4 +496,77 @@ Taille de blocs 64 bit
 
 Taille de clé de 56 bits.
 
-![https://www.tutorialspoint.com/cryptography/images/des_structure.jpg](https://www.tutorialspoint.com/cryptography/images/des_structure.jpg)
+##### Fonctionnement 
+
+L'algorithme DES transforme un bloc de 64 bits en un autre bloc de 64 bits. Il manipule des clés individuelles de 56 bits, représentées par  64 bits (avec un bit de chaque octet servant pour le [contrôle de parité](https://fr.m.wikipedia.org/wiki/Somme_de_contrôle)). Ce système de [chiffrement symétrique](https://fr.m.wikipedia.org/wiki/Chiffrement_symétrique) fait partie de la famille des chiffrements itératifs par blocs, plus particulièrement il s'agit d'un [schéma de Feistel](https://fr.m.wikipedia.org/wiki/Schéma_de_Feistel) (du nom de [Horst Feistel](https://fr.m.wikipedia.org/wiki/Horst_Feistel) à l'origine du chiffrement [Lucifer](https://fr.m.wikipedia.org/wiki/Lucifer_(cryptographie))). 
+
+D'une manière générale, on peut dire que DES fonctionne en trois étapes :
+
+- permutation initiale et fixe d'un bloc (sans aucune incidence sur le niveau de sécurité) ;
+- le résultat est soumis à 16 itérations d'une transformation, ces  itérations dépendent à chaque tour d'une autre clé partielle de 48 bits. Cette clé de tour intermédiaire est calculée à partir de la clé  initiale de l'utilisateur (grâce à un réseau de tables de substitution  et d'opérateurs [XOR](https://fr.m.wikipedia.org/wiki/OU_exclusif)). Lors de chaque tour, le bloc de 64 bits est découpé en deux blocs de 32 bits, et ces blocs sont échangés l'un avec l'autre selon un schéma de  Feistel. Le bloc de 32 bits ayant le poids le plus fort (celui qui  s'étend du bit 32 au bit 64) subira une transformation ;
+- le résultat du dernier tour est transformé par la fonction inverse de la permutation initiale.
+
+DES utilise huit tables de substitution (les [S-Boxes](https://fr.m.wikipedia.org/wiki/S-Box)) qui furent l'objet de nombreuses controverses quant à leur contenu. On  soupçonnait une faiblesse volontairement insérée par les concepteurs.  Ces rumeurs furent dissipées au début des années 1990 par la découverte  de la [cryptanalyse différentielle](https://fr.m.wikipedia.org/wiki/Cryptanalyse_différentielle) qui démontra que les tables étaient bien conçues.
+
+**Schéma :**
+
+![https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Data_Encription_Standard_Flow_Diagram.svg/300px-Data_Encription_Standard_Flow_Diagram.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Data_Encription_Standard_Flow_Diagram.svg/300px-Data_Encription_Standard_Flow_Diagram.svg.png)
+
+Boite E : Prend en entrée un 32 bits et va ressortir quelque chose en 48 pour cela il va recopier de manière aléatoire certain bits.
+
+Boite S : (*substitution box*), terme anglais désignant une table de [substitution](https://fr.m.wikipedia.org/wiki/Substitution) utilisée dans un algorithme de [chiffrement symétrique](https://fr.m.wikipedia.org/wiki/Cryptographie_symétrique). Une S-Box contribue à la « confusion » (terme employé par [Claude Shannon](https://fr.m.wikipedia.org/wiki/Claude_Shannon)) en rendant l'information originale inintelligible. Les S-Boxes permettent de casser la [linéarité](https://fr.m.wikipedia.org/wiki/Linéarité) de la structure de chiffrement et leur nombre varie selon les algorithmes.
+
+Boite P : Permutation sur les 32 bits.
+
+##### La fin du DES
+
+- 1992 : Cryptanalyse différentielle (attaque théorique, 2⁴⁷ textes clairs choisis)
+- 1994 : Cryptanalyse linéaire (attaque pratique, une clef est récupérée)
+- 1997 : DESCHALL Project (3 mois pour retrouver la clef)
+- 1999 : Deep Crack, distributed net (23 heures pour retrouver la clé)
+- 2004 : Le standard a été **abandonné**
+
+#### Double DES
+
+Une idée pour rallonger la clef du DES était de chiffrer chaque message avec DES deux fois avec 2 clefs différentes.
+
+```mermaid
+graph LR 
+
+E --> B
+F --> C
+A --> B
+
+B --> C
+C --> D
+
+A((m))
+B[DES]
+C[DES]
+D((c))
+E((K1))
+F((K2))
+
+```
+
+$$
+c = DES_{K_2}(DES_{K_1}(m))
+$$
+
+
+
+Taille des blocs : 64 bits
+
+Taille de la clef : 112 bits
+
+Recherche exhaustive : 2¹¹² clés
+
+##### L'attaque par le milieu
+
+Cette attaque vise à retrouver la cle (K1, K2) du chiffrement
+
+L'attaquant possède un couple clair-chiffré (m,c)
+
+Le message m a été chiffré en c avec la clef inconnue (K1, K2) qu'on vise à retrouver.
+
+ 
