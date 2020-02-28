@@ -569,4 +569,65 @@ L'attaquant possède un couple clair-chiffré (m,c)
 
 Le message m a été chiffré en c avec la clef inconnue (K1, K2) qu'on vise à retrouver.
 
- 
+ L'attaquant commence à construire deux listes L_m et L_i
+
+ ```mermaid
+graph LR 
+
+E --> B
+F --> C
+A --> B
+
+B --> C
+C --> D
+
+A --> C
+A((m))
+B[DES]
+C[DES]
+D((c))
+E((K1))
+F((K2))
+
+ ```
+
+- Pour toute clef :
+  $$
+  k \in \{0,1\}^{56}
+  $$
+  l'attaquant calcul DES_k(m), et il stocke le résultat dans une liste L_m
+
+- Pour toute clef K appartient à {0,1}⁵⁶ l'attaquant calcul DES⁻¹_k(m), et il stocke le résultat dans une liste L_i
+
+Soit t un élément commun aux deux listes :
+$$
+t = DES_{k_1}(m) \\
+t = DES_{k_2'}^{-1}(c) => c = DES_{k_2'}(t) =>^{(1)} c = DES_{k_2'}(DES_{k_1'}(m))
+$$
+Le couple (k_1', k_2') est une clef candidate pour la clef (k_1, k_2) recherche.
+
+**Complexité en mémoire :**
+$$
+2 * 2^{56} \ couples \ (chiffré \ clef)
+$$
+**Complexité en temps :** Trier les deux tableaux *O(n log n)*
+$$
+2 * 2^{56}*56 = 2^{63}
+$$
+
+
+- Recherche des collisions dans les listes triés :
+  $$
+  O(n) \ 2^{56} \ dans \ notre \ cas
+  $$
+  
+
+|                          | Temps | Mémoire |
+| ------------------------ | ----- | ------- |
+| Attaque par force brute  | 2¹¹²  | 0       |
+| Attaque par dictionnaire | 0     | 2¹¹²    |
+| Attaque par le milieu    | 2⁶³   | 2⁵⁷     |
+
+#### Triple DES (3DES)
+
+![https://4.bp.blogspot.com/-e0WI3IR7ZFU/VpRniTRG8kI/AAAAAAAADug/SQDQ84J1kwY/s1600/triple%2Bdes.jpg](https://4.bp.blogspot.com/-e0WI3IR7ZFU/VpRniTRG8kI/AAAAAAAADug/SQDQ84J1kwY/s1600/triple%2Bdes.jpg)
