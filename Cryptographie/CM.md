@@ -660,7 +660,11 @@ $$
 $$
 \text{(Existence) Pour chaque 1} \le i \le r, \text{les entiers }m_i \ et \ m'_i = \frac{M}{m_i}=\frac{m_1... m_{i-1}*m_i*m_{i+1}...m_r}{m_i} \\ \text{sont premiers entre eux }(pgcd(m_i,m'_i)=1, \ i=1,...,r) \\
 \text{En utilisant le théorème d'Euclide étendu pour le couple }(m_i, m'_i) \text{on peut trouver des entiers } u_i \ et \ v_i \ tel \ que :\\ \ 
-u_im_i +v_im'_i=1
+u_im_i +v_im'_i=1 \\
+e_i = v_im'_i \\
+\text{On a que }e_i \equiv 1 \ mod \ m_i de 1 \\
+e_i \equiv 0 \ mod \ m_j de (j \neq i)\\
+\text{(Parce que } e_i = v_im'_i=v_im_1...m_j...m_r)
 $$
 
 #### Résolution
@@ -670,5 +674,15 @@ m_1 = 17, m_2 = 11, m_3 = 6 \\
 m'_1 = \frac{m_1*m_2*m_3}{m_1} = m_2 * m_3 = 11 * 6 = 66 \\
 m'_2=m_1*m_3= 17*6 = 102 \\
 \underline{m'3 = m_1*m_2 = 17 * 11 = 187} \\
+--- \\
+\text{Algorithme d'Eulide étendu pour :} \\
+(m_1, m'_1)=(17, 66) \\
+(-31)*17+8*66 = 1 \ e_1=8*66 \\
+--- \\
+(m_2, m'_2)=(11, 102) \\
+(-37)*11+4*102 = 1 \ e_2=4*102 \\
+--- \\
+(m_3, m'_3)=(6, 187) \\
+(-31)*6+1*187 = 1 \ e_3=187 \\
 $$
 
