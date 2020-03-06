@@ -631,3 +631,44 @@ $$
 #### Triple DES (3DES)
 
 ![https://4.bp.blogspot.com/-e0WI3IR7ZFU/VpRniTRG8kI/AAAAAAAADug/SQDQ84J1kwY/s1600/triple%2Bdes.jpg](https://4.bp.blogspot.com/-e0WI3IR7ZFU/VpRniTRG8kI/AAAAAAAADug/SQDQ84J1kwY/s1600/triple%2Bdes.jpg)
+
+### Théorème des restes chinois
+
+#### Problème du trésor de pirate
+
+Une bande de 17 pirates possède un trésor constitué de pièces d'or. Ils projettent de se les partager également, et de donner le reste au cuisinier chinois. Celui-ci recevrait alors 3 pièces. Mais les pirates se querellent, et si d'entre eux sont tués. Un nouveau partage donnerait au cuisinier 4 pièces. Dans un naufrage ultérieur, seuls le trésor, six pirates et le cuisinier sont sauvés, et le partage donnerait alors 5 pièces d'or à ce dernier. Quelle est la fortune minimale que peut espérer le cuisiner s'il décide d'empoisonner le reste des pirates ? 
+
+#### **Modélisation du problème ** : 
+
+Soit x le nombre de pièces d'or.
+$$
+x \equiv 3 \ mod \ 17 \\ 
+x \equiv 4 \ mod \ 11 \\
+x \equiv 5 \ mod \ 6 \\
+$$
+
+#### Théorème
+
+Soient m_1... m_r des entiers deux à deux premiers entre eux (c'est à dire pgcd(m_i, m_j) =1, i différent de j). Alors, pour tout entiers a_1, a_2, ..., a_r. Il existe un entier x, unique modulo M ) m_1, m_2... m_r tel que :
+$$
+x \equiv a_1 \ mod \ m_1 \\
+x \equiv a_r \ mod \ m_r
+$$
+
+#### Démonstration
+
+$$
+\text{(Existence) Pour chaque 1} \le i \le r, \text{les entiers }m_i \ et \ m'_i = \frac{M}{m_i}=\frac{m_1... m_{i-1}*m_i*m_{i+1}...m_r}{m_i} \\ \text{sont premiers entre eux }(pgcd(m_i,m'_i)=1, \ i=1,...,r) \\
+\text{En utilisant le théorème d'Euclide étendu pour le couple }(m_i, m'_i) \text{on peut trouver des entiers } u_i \ et \ v_i \ tel \ que :\\ \ 
+u_im_i +v_im'_i=1
+$$
+
+#### Résolution
+
+$$
+m_1 = 17, m_2 = 11, m_3 = 6 \\
+m'_1 = \frac{m_1*m_2*m_3}{m_1} = m_2 * m_3 = 11 * 6 = 66 \\
+m'_2=m_1*m_3= 17*6 = 102 \\
+\underline{m'3 = m_1*m_2 = 17 * 11 = 187} \\
+$$
+
