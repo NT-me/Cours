@@ -710,11 +710,17 @@ Inventé par **R**ivest, **S**hamir, **A**dleman en 1977 et est basé sur le pro
 
 #### Génération de clefs
 
-1. Choisir deux grands nombres premiers **p** et **q**.
-2. n = p * q
-3. Calculer **ϕ**(n)
+$$
+1. \text{Choisir deux grands nombres premiers p et q.} \\
+2. \ n = p * q \\
+3. \ \text{Calculer } \phi(n)=\phi(p*q)=\phi(p)\phi(q)=(p-1)(q-1) \\
+4. \ \text{Choisir } K_{pub}=e \in \{1, 2, ..., \phi(n)-1\} \text{ tel que } pgcd(e,\phi(n))=1 \\
+5. \ \text{Calculer } K_{pr}=d \text{ tel que } d*e \equiv 1 * mod \ \phi(n) \ K_{pub} = \{n,e\} \ k_{pr}=\{p,q,d\}
+$$
 
-La fonction **ϕ** d'Euler : Le nombre d'entiers de Z/n² qui sont relativement prmeiers avec n est noté **ϕ**(n)
+
+
+La fonction **ϕ** d'Euler : Le nombre d'entiers de Z/n² qui sont relativement premiers avec n est noté **ϕ**(n)
 $$
 \frac{\mathbf{Z}}{n^\mathbf{Z}}=\mathbf{Z}_n = \{0, 1..., n-1\}
 $$
