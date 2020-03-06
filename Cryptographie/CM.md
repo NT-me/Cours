@@ -667,6 +667,14 @@ e_i \equiv 0 \ mod \ m_j de (j \neq i)\\
 \text{(Parce que } e_i = v_im'_i=v_im_1...m_j...m_r)
 $$
 
+On montre maintenant que l'entier x=a_1 e_1 + a_2 e_2 +... a_r e_r est une solution au système.
+
+On va montrer que pour tout 1 ≤ i ≤ r, x ≡ a_i mod m_i
+$$
+\text{En effet }x = a_i e_i = a_i (1 - u_i m_i) = a_i - a_i u_i m_i ≡ a_i \ mod \ m_i
+$$
+
+
 #### Résolution
 
 $$
@@ -685,4 +693,3 @@ m'_2=m_1*m_3= 17*6 = 102 \\
 (m_3, m'_3)=(6, 187) \\
 (-31)*6+1*187 = 1 \ e_3=187 \\
 $$
-
