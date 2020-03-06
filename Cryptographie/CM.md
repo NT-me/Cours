@@ -693,3 +693,35 @@ m'_2=m_1*m_3= 17*6 = 102 \\
 (m_3, m'_3)=(6, 187) \\
 (-31)*6+1*187 = 1 \ e_3=187 \\
 $$
+
+## Cryptographie à clefs publiques
+
+![File:Chiffrement asymétrique.jpg](https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Chiffrement_asym%C3%A9trique.jpg/800px-Chiffrement_asym%C3%A9trique.jpg)
+
+### Familles d'algorithmes à clef publique 
+
+- Basés sur le problème de la factorisation
+- Basés sur le problème du logarithme discret
+- Basés sur le problème des courbes elliptiques
+
+### RSA
+
+Inventé par **R**ivest, **S**hamir, **A**dleman en 1977 et est basé sur le problème de factorisation 
+
+#### Génération de clefs
+
+1. Choisir deux grands nombres premiers **p** et **q**.
+2. n = p * q
+3. Calculer **ϕ**(n)
+
+La fonction **ϕ** d'Euler : Le nombre d'entiers de Z/n² qui sont relativement prmeiers avec n est noté **ϕ**(n)
+$$
+\frac{\mathbf{Z}}{n^\mathbf{Z}}=\mathbf{Z}_n = \{0, 1..., n-1\}
+$$
+**Exemple :** ϕ(6) = 2
+
+- Si p est prmeier ϕ(p) = p-1
+- Si pgcd(m,n)=1 ϕ(m,n) = ϕ(m) ϕ(n)
+
+
+
