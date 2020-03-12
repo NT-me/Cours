@@ -331,6 +331,74 @@ Exécution d'une instruction en 5 étapes
 
 ## Pipeline
 
+![Plan d'un pipeline générique à trois étapes](https://upload.wikimedia.org/wikipedia/commons/b/bb/Pipeline_cha%C3%AEne_de_traitement.png)
+
+Le pipeline est semblable à une chaîne de montage. Dans une chaîne de montage de voitures, il y a un certain nombre d'étapes, chacune constituant une partie de la construction d'une voiture. Chaque étape opère en parallèle avec les autres étapes, mais sur une autre voiture.
+
+Chaque étape constitue un étage du pipeline.
+
+### Étude d'un pipeline simple
+
+1. Principe de base : phase (logiciel) & étages (matériel)
+2. Aléas de données : principe et traitement
+3. Aléas de contrôle : Principe et traitement
+4. Aléas matériels : Principe et traitement 
+
+#### Notions de phases
+
+Les phases sont une répartition commune à toutes les machines.
+
+1. IF (instruction Fetch) : Chargement de l'instruction et MAJ du compteur de programme
+2. ID (Instruction Decode) : Préparation des opérandes : Lecture des registres sources, extension des offsets
+3. EX (Execution) : Exécution dans le sens calcul/production d'une valeur résultat. Phase complexe selon les instructions.
+4. MEM (Memory access) : Accès mémoire pour lecture ou écriture
+5. WB (Write Back) : MAJ des registres résultats
+
+#### Exemple d'un pipeline classique RISC
+
+En supposant que chaque étape met 1 cycle d'[horloge](https://fr.wikipedia.org/wiki/Horloge) pour s'exécuter, il faut normalement 5 cycles pour exécuter une instruction, 15 pour 3 instructions :
+
+[![img](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Nopipeline.png/386px-Nopipeline.png)](https://commons.wikimedia.org/wiki/File:Nopipeline.png?uselang=fr)
+
+> Séquençage des instructions dans un processeur sans pipeline. Il faut 15 cycles pour exécuter 3 instructions.
+
+En utilisant la technique du pipeline, notre processeur peut alors  contenir plusieurs instructions, chacune à une étape différente.
+
+[![img](https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Fivestagespipeline.png/386px-Fivestagespipeline.png)](https://commons.wikimedia.org/wiki/File:Fivestagespipeline.png?uselang=fr)
+
+> Séquençage des instructions dans un processeur doté d'un pipeline à 5 étages. Il faut 9 cycles pour exécuter 5 instructions. À *t* = 5, tous les étages du pipeline sont sollicités, et les 5 opérations ont lieu en même temps.
+
+Les 5 instructions s'exécuteront en 9 cycles, et le processeur sera  capable de terminer une instruction par cycle à partir de la cinquième,  bien que chacune d'entre elles nécessite 5 cycles pour s'exécuter  complètement. Au 5e cycle, tous les étages sont en cours d'exécution.
+
+#### Temps de cycle du Pipeline
+
+On s'algine sur l'étage le plus lent en considérant chaque instruction afin de ne pas perdre les données lors du passage d'un étage à un autre le pipeline est cadencé par ce **ce cycle.**
+
+- **Start-up :** le temps nécessaire au pipeline d'avoir tous les étages occupés afin de produire le premier résultat au cycle suivant.
+
+#### Table de réservation
+
+**Définition :** Une table de réservation **élémentaire** est un tableau bidirectionnel associé à chaque instruction, décrivant cycle par cycle, l'utilisation des ressources matérielles. La table de réservation se construit de la manière suivant :
+
+1. A chaque colonne est associé un numéro de cycle
+2. A chaque ligne est associé une ressource matérielle
+3. A l'intersection de la la ligne i et la colonne j on va avoir le nom de l'instruction occupant l'étage.
+
+Si elle n'est plus élémentaire un appelle ça une table de réservation globale.
+
+### Principe du pipeline
+
+A la différence du fonctionnement clasqqieu en mode séquentiel, le pipeline n'attend pas la fin complète d'une tâche pour démarrer la suivante :
+
+- Une nouvelle instruction est lancée à chaque cycle mais ceci n'est valable que pour un pipeline idéale.
+
+**Exécutions :**
+
+- Séquentiel : Lancer une instruction, une fois la précédente totalement terminée
+- Pipelinée : Lancement de l’exécution d'une instruction *à chaque cycle* (On attend pas la terminaireson d'une instruction pour lancer la suivante)
+
+**Cas idéal :** Instructions complètement indépendante : Après le startup, on a un résultat par cycle.
+
 ## Machines superscalaires
 
 ## Hiérarchie mémoire
