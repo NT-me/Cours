@@ -748,7 +748,139 @@ Alice <-- (n, e) -- Bob, choisit p=3 et q=11.
 $$
 20 = 6 * 3 + 2 \\ 3 = 1 * 2 + 1 => \\
 ---\\
-1 = 3 - 2 = 3 - (20 - 6*3)
+1 = 3 - 2 = 3 - (20 - 6*3)=[-1]20+7*3 \\
+1 \equiv (-1)20+3*7 \ mod \ 20 \\
+1 = 7 * 3 \ mod \ 20
+$$
+**Déchiffrement :**
+$$
+c^d = 31^7 \equiv (-2)^7 \\
+\equiv (-2)^5 *(-2)^2 \\
+\equiv -32 * 4 \\
+\equiv -(-1)*4 \\
+\equiv 4 \ mod \ 33 
+$$
+**Petit Théorème de Fermat :**
+
+Soit p un nombr premier et a un entier tel que pgcd(a, p)=1, alors
+$$
+q^{p-1} \equiv 1 \ mod \ p
+$$
+Il est équivalent à montrer que :
+$$
+m^{ed} \equiv m \ mod \ p \\
+m^{ed} \equiv m \ mod \ q
 $$
 
+
+
+
+
+1. Cas p divise m
+
+   m ≡ 0 mod p mais également m^ed ≡ 0 mod p
+
+   Donc on a bien que m^ed ≡ m mod p
+
+2. p ne divise pas m
+
+   Les clefs e et d sont choisis de façon que :
+
+$$
+e*d \equiv 1 mod(p-1)(q-1) \\
+$$
+
+Il existe K un entier réel tel que :
+$$
+ed = k(p-1)(q-1)+1 \\
+m^{ed} = m^{k(p-1)(q-1)+1} \ mod \ p \\
+= (m^{(p-1)})*m \ mod \ p \\
+\equiv 1^{k(q-1)}*m \ mod \ p \\
+\equiv m \ mod \ p
+$$
+
+#### Générer des grands nombres premiers
+
+```mermaid
+graph LR 
+
+A -->|Candidat P|B
+B --> C
+B --> D
+
+A[Générateur de nombres aléatoires]
+B[Test de primalité]
+C[p est premier]
+D[p est composé]
+```
+
+Question : Quelle est la probabilité de trouver un nombre premier avec ce processus ?
+
+
+
+**Théorème des nombres premiers :**
+
+Soit π(n) le nombre de premiers qui inférieurs à n  :
+$$
+Alors \ \pi(n) \ ≈ \frac{n}{ln(n)} \ n \rightarrow + \infin
+$$
+Il existe RSA-1024/2048/4096
+
+Pour RSA-K où n fait k bits il y abesoin de générer deux nombres premiers de taille k/2 bits.
+
+**Exemple :** Pour RSA-1024, p et q font 512 bits
+
+**Question :** Les nombres premiers K bits sont-ils fréquents ?
+
+Supposons qu'on veuille générer un nombre p prmier de k bits exactement. On sait que :
+$$
+2^{k-1} \le p \le 2^k-1
+$$
+Le nombre depremiers dans cet intervalle peut être approximé par :
+$$
+\frac{2^{k-1}}{ln(2^{k-1})}
+$$
+Dans l'intervalle 
+$$
+[2^{k-1},2^{k}-1] \ il \ y \ a \ 2^k-1 - 2^{k-1} ≈ 2^{k-1}(2-1) = 2^{k-1} \text{ entiers et parmi eux} \frac{2^{k-1}}{ln(2^{k-1})} \text{ sont premiers.} \\
+\text{La probabilité de tomber sur un nombre premier est } \frac{\frac{2^{k-1}}{ln(2^{k-1})}}{2^{k-1}} = \frac{1}{ln(2^{k-1})}
+$$
+**Exemple :**
+$$
+k-500 \\
+\frac{1}{ln(2^{k-1})} = \frac{1}{346}
+$$
+**Test de primalité :** Déterminer si le nombre généré est premier ou composé
+
+##### **Test déterministe naïf :** 
+
+```
+
+Entrée : un entier n
+
+​	Pour tout nombre prmeier p ≤ √n
+
+​		Si p divise n
+
+​			Renvoyer composé
+
+​	renvoyer premier
+```
+
+##### **Tests de primalité probabilistes :**
+
+- p est composé, vrai avec probabilité 1
+- p est premier, vrai avec probabilité p < 1
+
+On répète le test plusieurs fois pour que la probabilité que le test se trompe devienne négligeable. 
+
+##### Test de Fermat
+
+```
+Si p est premier et a un entier tel que :
+		pgcd(p,q) = 1 alors
+	a^(p-1) ≡ 1 mod p
+
+a^{n-1} ≡ 1 mod n
+```
 
