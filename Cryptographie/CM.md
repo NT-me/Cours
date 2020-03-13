@@ -729,5 +729,26 @@ $$
 - Si p est prmeier ϕ(p) = p-1
 - Si pgcd(m,n)=1 ϕ(m,n) = ϕ(m) ϕ(n)
 
+$$
+Chiffrer \ m^e \ mod \ n \\
+Déchiffrer \ c^d \ mod \ n
+$$
+
+**Exemple :** 
+
+Alice <-- (n, e) -- Bob, choisit p=3 et q=11. 
+
+​							Calcule `n = p * q = 33`
+
+​							Calcule `ϕ(n) = (3 - 1)(11 - 1) = 20 `
+
+​							Choisit e = 3
+
+​							Calculer d
+$$
+20 = 6 * 3 + 2 \\ 3 = 1 * 2 + 1 => \\
+---\\
+1 = 3 - 2 = 3 - (20 - 6*3)
+$$
 
 

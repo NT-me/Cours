@@ -399,6 +399,15 @@ A la différence du fonctionnement clasqqieu en mode séquentiel, le pipeline n'
 
 **Cas idéal :** Instructions complètement indépendante : Après le startup, on a un résultat par cycle.
 
+#### Les aléas de données
+
+Technique de l'envoie (court circuit) :
+
+- 1er niveau (lier la sortie de l'ALU à son entrée)
+  - Supprimer la RAW (distance = 1 cycle)
+- 2e niveau (lier la sortie de mémoire à l'entrée ALU)
+  - Supprimer la RAW (distance = 2 cycle)
+
 ## Machines superscalaires
 
 ## Hiérarchie mémoire
