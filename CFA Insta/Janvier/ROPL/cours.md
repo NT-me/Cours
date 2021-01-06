@@ -353,3 +353,28 @@ Tant qu'il existe une variable hors-base de coût réduit strictement positif :
 - S'il existe un coût réduit strictement positif (donc il y a une variable entrante) mais que tous les $a_{i,k}$ sont positif ou nul (il n' a pas de variable sortante), alors la valeur du PL est $+ \infty $
 
 **Remarque :** Pour revenir a une solution optimale du PL de départ, il suffit de ne plus tenir compte des variables d'écarts (remarque issue de l'exemple déroulé du simplexe)
+
+##### **Exemple du tableau type**
+
+|                               | Nom de toutes les variables          | Résultat des équations (b)      |
+| ----------------------------- | ------------------------------------ | ------------------------------- |
+| **Nom des variables de base** | Coefficients de toutes les variables | Résultat des équations          |
+| **Coût (c)**                  | Coefficient de la fonction objectif  | Inverse de la solution courante |
+
+**Exemple tiré de l'exercice 2 du TD :**
+
+![image-20210106112316472](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210106112316472.png)
+
+Le premier tableau sera donc :
+
+$x_B = \{e_1, e_2, e_3 \}$
+
+$x_H = \{x_1, x_2\}$
+
+|         | $ x_1 $ | $ x_2 $ | $ e_1 $ | $ e_2 $ | $ e_3 $ | b             |
+| ------- | ------- | ------- | ------- | ------- | ------- | ------------- |
+| $ e_1 $ | 2       | 3       | 1       | 0       | 0       | 1             |
+| $e_2$   | 1       | 0       | 0       | 1       | 0       | $\frac{1}{3}$ |
+| $e_3$   | 0       | 1       | 0       | 0       | 1       | $\frac{1}{4}$ |
+| **C**   | 1       | 1       | 0       | 0       | 0       | 0             |
+
