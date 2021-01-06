@@ -213,11 +213,54 @@ Tous les points satisfaisant (*) vérifiant (2).
 
 <u>Idée :</u> Une inégalité est redondante si on peut écrire une inégalité au moins aussi forte en combinant les autres.
 
+
+
+------
+
+
+
 ## Chapitre II : Algorithme du simplexe
 
-...
+### Programme linéaire en général
 
-### Forme standard
+#### Forme générale
+
+$$
+min/max \sum_{i=1}^{d}c_ix_i ~~~~\text{(Avec "d" pour "dimension") } \\
+
+\left \{
+\begin{array}{c @{=} c}
+    \sum_{j=1}^{d} a_{i,j}x_j \le b_i, i\in I^\le \\
+    \sum_{j=1}^{d} a_{i,j}x_j \ge b_i, i\in I^\ge \\
+    \sum a_{i,j}x_j = b_i, i\in I^= \\
+    x_i \ge 0, j\in J_+ \\
+    x_i \le 0, j\in J_- \\
+    x_i ~libre ~ 0, j\in J \\
+\end{array}
+\right.
+\\(\text{Avec }I^{\le,\ge,=} \text{ ensemble des indices d'inégalités de type }\le,\ge ou~=)
+$$
+
+#### Forme canonique
+
+$$
+max ~ c.x \\
+
+\left \{
+\begin{array}{c @{=} c}
+    A_x \le b \\
+    x \ge 0 \\
+\end{array}
+\right.
+$$
+
+- $A$ est une matrice de taille $m*d$.
+
+- $b$ est justifié par  $\sum_{j=1}^{d} a_{i,j}x_j \le b_i, i=1...m$
+
+- $0$ est justifié par $x_j \ge 0, j=1,...d$ 
+
+#### Forme standard
 
 $$
 max ~ cx \\
@@ -230,7 +273,7 @@ max ~ cx \\
 \right.
 $$
 
-
+On remarque que le signe (=) de la première égalité est la différence avec la forme canonique.
 
 **Conséquence :** Sous forme standard on peut supposer $ rang(A) = m $, où m est le nombre de lignes de A.
 
@@ -244,6 +287,102 @@ $$
 > $$
 
 Dorénavant on supposera que dans la forme standard le rang de la matrice est égal à son nombre de ligne.  $ rang(A) =m $.
+
+##### Théorèmes
+
+- Au prix d'un éventuel ajout de contraintes et de variables, tout programme linéaire peut être transformé en un programme linéaire *équivalent* (toute solution optimale pour l'un fournit la solution optimale pour l'autre) sous forme canonique.
+- Pareil pour la forme standard.
+
+##### Exemple
+
+$$
+max(x_1+x_2)\\
+
+\left \{
+\begin{array}{c @{=} c}
+    x_1 - 2x_2 \le 1 \\
+    2x_1 - x_2 \ge 2 \\
+    -2x_1-x_2 \le 1 \\
+    x_1, x_2 \ge 0
+\end{array}
+\right.
+-\text{Forme standard}\rightarrow
+\left \{
+\begin{array}{c @{=} c}
+    x_1 - 2x_2+\underline{e_1} = 1 \\
+    2x_1 - x_2 -\underline{e_2} = 2 \\
+    -2x_1-x_2+\underline{e_3} = 1 \\
+    x_1, x_2, \underline{e_1}, \underline{e_2}, \underline{e_3} \ge 0
+\end{array}
+\right.
+$$
+
+La base $x_B$ est $\{e_1,-e_2,e_3\}$ avec une solution associée à $(0,0,1,-2,1)$ qui n'est **pas réalisable**.
+
+#### Règles de transformations
+
+|            Objet a transformer            |                  Règles de transformations                   |
+| :---------------------------------------: | :----------------------------------------------------------: |
+|         $min \leftrightarrow max$         |                    $min ~ cx = -max(-cx)$                    |
+|         $\ge \leftrightarrow \le$         |             $ax \ge b \Leftrightarrow -ax\le-b$              |
+|          $= \leftrightarrow \le$          | $ax=b \Leftrightarrow \left \{\begin{array}{c @{=} c}ax \le b \\ -ax \le -b\end{array}\right.\Leftrightarrow \left \{\begin{array}{c @{=} c}ax \le b \\ ax \ge b\end{array}\right.$ |
+|                $x_j \le 0$                | On pose $x_j=-x_j$ et on remplace $x_j$ par $-x'_j$ partout, et du coup on a $x'j \ge 0$ |
+| $x_j \text{libre}$ (pas de signe précisé) | On remplace $x_j$ par $x_j^+-x_j^-$ et on ajoute $x_j^+\ge0$ et  $x_j^-\ge0$ (on supprime $x_j$ ensuite) <br> **Exemple :**  $x_j = 5 \rightarrow x_j^+=5,x_j^-=0$ <br>$x_j=-3 \rightarrow x_j^+=0, x_j^-=3$ |
+|          $\le \longrightarrow =$          | Ajout de variable d'écarts $ax \le b$ devient $\left \{\begin{array}{c @{=} c}ax + e =b \\ e \ge0\end{array}\right.$ avec $e$ en variable d'écart |
+
+##### Exemple
+
+###### Forme générale
+
+$$
+min(x-y)\\~\\
+
+\left \{
+\begin{array}{c @{=} c}
+    x \ge 1 \\
+    x+y = 2 \\
+    x-2y \le 4 \\
+    x \ge 0 \text{ (y est donc libre)}
+\end{array}
+\right.
+$$
+
+
+
+###### PL équivalent sous forme canonique
+
+$$
+-max-x+y^+-y^-\\~\\
+
+\left \{
+\begin{array}{c @{=} c}
+    -x \le -1 \\
+    x+y^+-y^- \le 2 \\
+    -x-y^++y^- \le -2 \\
+    x-2y^++2y^- \le 4 \\
+    x, y^+,y^- \ge 0 \text{ (y n'est donc plus libre)}
+\end{array}
+\right.
+$$
+
+
+
+###### PL équivalent sous forme standard
+
+$$
+-max-x+y^+-y^-\\~\\
+
+\left \{
+\begin{array}{c @{=} c}
+    -x+e_1 = -1 \\
+    x+y^+-y^- = 2 \\
+    x-2y^++2y^-+e_2=4\\
+    x, y^+,y^-,e_1,e_2 \ge 0 
+\end{array}
+\right.
+$$
+
+
 
 ### Définitions 
 
@@ -275,7 +414,16 @@ un programme linéaire sous forme standard.
 >
 > <u>Q:</u> $ \{1, 2\} $ forme une base ?
 >
-> <u>R:</u> Oui car elle est inversible 
+> <u>R:</u> Oui car $det ≠ 0$
+>
+> Par rapport à la base {1,2}:
+>
+> - $x_1,x_2$: sont les variables de base
+> - $x_3,x_4$ sont hors-base
+>
+> <u>Q:</u> {2,3} forme une base ?
+>
+> <u>R:</u> Non car $det=0$
 
 - Etant donné une base B : poser $ x_H = 0$ (c'est à dire mettre toutes les variables hors-base à zéro) définit une solution unique au système $A_x = b$ 
 
@@ -299,7 +447,7 @@ Et le simplexe va chercher a améliorer les valeurs de la fonction objectif.
 
     Et le point rose est **réalisable** et **optimale**.
 
-###  Déterminer si une base est réalisable
+###  Déterminer une base et si elle est réalisable
 
   Etant donné un PL, pour vérifier si la base est réalisable :
 
@@ -378,3 +526,140 @@ $x_H = \{x_1, x_2\}$
 | $e_3$   | 0       | 1       | 0       | 0       | 1       | $\frac{1}{4}$ |
 | **C**   | 1       | 1       | 0       | 0       | 0       | 0             |
 
+### Algorithme du Simplexe (Phase 1)
+
+#### Entrée/Sortie
+
+**Entrée : ** Un PL sous forme standard
+
+**Sortie :** Une solution de base réalisable s'il en existe une (sinon le PL est vide et on ne peut pas aller plus loin.)
+
+#### Corps
+
+- On ajoute une variable artificielle $y_i$ par contrainte $a_ix=b_i$ avec un coefficient devant $y_i$ dépendant de $b_i$: 
+  - $+y_i$ si $b_i \ge 0$
+  - $-y_i$ si $b_i < 0$
+
+  et $(y_i \ge 0)$ 
+
+- On résout ce nouveau PL en appliquant la phase II avec comme fonction objectif : $min(y_1+...+y_m) =-max(-y_1-...-y_m)$. et comme solution de base réalisable celle associée à la base des variables artificielles $\{y_1,...y_m\}$.
+
+#### Terminaison (conditions de sortie)
+
+- Si la valeur de de ce nouveau PL est 0, on obtient une solution de base réalisable des PL de départ
+- Sinon, le PL de départ est vide
+
+#### Exemple 
+
+$$
+max(x_1 + x_2) \\
+
+\left \{
+\begin{array}{c @{=} c}
+    -x_1 + 3x_2 = 2 \\
+    -7x_1 + 4x_2 = -2 \\
+    x_1, x_2 \ge 0
+\end{array}
+\right.
+$$
+
+Ce PL est déjà en format std mais il n'y a pas de base réalisable évidente (pas d'identité matricielle évidente donc relou a déterminer) il est donc nécessaire de de passer par la phase 1 du simplexe :
+
+- Introduction des variables artificielles ($y_1, y_2$)
+
+$$
+-max(-y_1-y_2) == min(y_1+y_2)\\
+(N)\left \{
+\begin{array}{c @{=} c}
+    -x_1 + 3x_2+\underline{y_1} = 2 \\
+    -7x_1 + 4x_2-\underline{y_2} = -2 \\
+    x_1, x_2, \underline{y_1}, \underline{y_2} \ge 0
+\end{array}
+\right.
+$$
+
+​	Base $\{y_1,y_2\}$, solution associée (0,0,2,2) <u>réalisable</u>.
+
+- On résout $(N)$ en appliquant la **phase II**
+
+  - Tableau associé à $\{y_1,y_2 \}$
+
+    ![image-20210106141525593](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210106141525593.png) 
+
+    La variable qui sort est donc $y_2$ au profit de $x_1$. ($\frac{7}{2}> NaN$)
+
+  - Tableau associé à $\{y_1,x_1\}$
+
+  ![image-20210106141608187](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210106141608187.png)
+
+    La variable qui sort est donc $y_1$ au profit de $x_2$. ($\frac{16}{17}> NaN$)
+
+  - Tableau associé à $\{x_2,y_2\}$
+
+  ![image-20210106142000191](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210106142000191.png)
+
+  Tous les coûts réduits sont négatifs ou nuls : la solution optimale de la phase I est ($\frac{328}{119}, \frac{16}{17}, 0, 0$) de valeur <u>0</u>.
+
+  Autrement dit on a une base $x_1, x_2$ du PL de départ avec solution de base associée : $(\frac{328}{119},\frac{16}{17})$ <u>réalisable</u> est la variables artificielles sont nulles.
+
+- On donc lancer les phase II pour le PL de départ
+
+  - Tableau associé à {$x_1, x_2$} :
+
+    ![image-20210106143129298](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210106143129298.png)
+
+  La partie $A_x=b$ (Qui pour rappel correspond ici a : $\{x_1, x_2\}$) de tableau est déjà écrite à la dernière étape de la phase I.
+
+### Bilan
+
+Etant donné un PL en général pour le résoudre :
+
+1. On le met sous forme standard
+2. S'il n'y a pas de solution de base **réalisable** et <u>**évidente**</u> on applique la phase I, s'il y'en a une on saute directement a l'étape (3)
+   - Soit le PL de départ obtenu est vide dans ce cas on **s'arrête** (Optimum de la phase I différent de 0)
+   - Soit on obtient une solution de base B réalisable du PL de départ
+3. On applique la phase II du PL de départ avec B comme base réalisable.
+   - Soit la valeur est $+ \infin$ (Lorsqu'il y'a une variable entrante mais pas de variable sortante)
+   - Soit la on obtient une solution réalisable optimale et sa valeur (Lorsqu'il y'a pas de variable entrante)
+
+#### Variable d'écarts VS variables artificielles
+
+$$
+max(x_1+x_2)\\
+
+\left \{
+\begin{array}{c @{=} c}
+    x_1 - 2x_2 \le 1 \\
+    2x_1 - x_2 \ge 2 \\
+    -2x_1-x_2 \le 1 \\
+    x_1, x_2 \ge 0
+\end{array}
+\right.
+-\text{Forme standard}\rightarrow
+\left \{
+\begin{array}{c @{=} c}
+    x_1 - 2x_2+\underline{e_1} = 1 \\
+    2x_1 - x_2 -\underline{e_2} = 2 \\
+    -2x_1-x_2+\underline{e_3} = 1 \\
+    x_1, x_2, \underline{e_1}, \underline{e_2}, \underline{e_3} \ge 0
+\end{array}
+\right.
+$$
+
+La base $x_B$ est $\{e_1,-e_2,e_3\}$ avec une solution associée à $(0,0,1,-2,1)$ qui n'est **pas réalisable**.
+
+On va donc utiliser la phase I, l'objectif n'est pas d'ajouter des variables artificielles pour rien, mais seulement aux endroits où on en a besoin.
+$$
+-max(-y)\\
+\left \{
+\begin{array}{c @{=} c}
+    x_1 - 2x_2+{e_1} = 1 \\
+    2x_1 - x_2 -{e_2} + \underline{y}= 2 \\
+    -2x_1-x_2+{e_3}= 1 \\
+    x_1, x_2, {e_1}, {e_2}, {e_3},\underline{y} \ge 0
+\end{array}
+\right.
+$$
+On ne met donc une variable artificielle seulement au niveau de $e_2$ 
+
+Avec comme base réalisable de départ $\{e_1,y,e_3\}$ (solution associée $(0,0,1,0,1,2)$ réalisable) 
