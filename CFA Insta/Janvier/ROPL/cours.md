@@ -1,5 +1,7 @@
 # ROPL
 
+[TOC]
+
 ## Chapitre I : Programmation linéaire en 2D
 
 ### Problème A 
