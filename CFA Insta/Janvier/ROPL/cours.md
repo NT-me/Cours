@@ -11,7 +11,7 @@
 > | Ingrédients/Type | Allégés | Sucrés |
 > | ---------------- | ------- | ------ |
 > | Fraises          | 2       | 1      |
-> | 1                | 1       | 2      |
+> | Lait             | 1       | 2      |
 > | Sucre            | 0       | 1      |
 >
 > Prix de vente :
@@ -665,3 +665,110 @@ $$
 On ne met donc une variable artificielle seulement au niveau de $e_2$ 
 
 Avec comme base réalisable de départ $\{e_1,y,e_3\}$ (solution associée $(0,0,1,0,1,2)$ réalisable) 
+
+------
+
+## Chapitre III : Flots
+
+### Définitions
+
+#### Réseau de transport
+
+C'est un graphe orienté dans lequel il existe :
+
+- Un sommet sans prédécesseur, la <u>source</u>
+- Un sommet sans successeurs : le <u>puit</u>
+
+et chaque arc est muni d'une capacité de $c_a \ge 0$.
+
+#### Flot
+
+Un flot est la donnée d'une valeur $f_a$ sur chaque arc a telle que :
+
+1. $f_a \ge$ 0, pour tout arc $a \in A$. **Positivité**.
+2. $f_a \le c_a$ pour tout arc $a \in A$. **Respect des capacités**.
+3. $\sum_{a \in f^-(n)}f_a=\sum_{a \in f^+(n)}f_a$, pour tout sommet $u ≠ s,t$ **Conservation du flot, loi des noeuds, loi de Kirchhoff**
+
+![image-20210108090400763](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210108090400763.png)
+
+Les valeurs en rouge forment un flot:
+
+- Positif
+- Respecte les capacités
+- Conservation du flot
+
+de valeur 2.
+
+La **valeur d'un flot** est la quantité de flot sortant de la source.
+
+**Conséquence :** Le flot sortant de la source est égal au flot entrant dans le puits.
+
+**Problématique du chapitre :** Déterminer un flot de valeurs maximum
+
+C'est qu'on appellera un **flot maximum**.
+
+### Comment trouver les bonnes bornes supérieur sur la valeur d'un flot maximum ?
+
+**Remarque :** La valeur d'un flot est toujours inférieur ou égale à la somme des capacités des arcs sortant de la source.
+
+**Définition :** Soit $X$ un ensemble de sommets contenant la source mais pas le puits on appelle $\delta^+(X)$ une **st-coupe**.
+
+![image-20210108091517580](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210108091517580.png) 
+
+**Remarque :** Que se passe t-il si on supprime tous les arcs d'une st donnée ?
+
+Après coup, il n'y a plus de chemin de s à t. En effet toute st-coupe intersecte tout chemin de s à t.
+
+**Théorème :** La valeur d'un flot quelconque est inférieur ou égale à la capacité de toute st-coupe.
+
+![image-20210108092349976](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210108092349976.png)
+
+**Conséquence :** Si la valeur d'un flot f est égale à la capacité d'une st-coupe $\delta^+(X)$, alors f est un flot maximum.
+
+### Flot max coupe minimum
+
+#### Chaine augmentante 
+
+On se donne un flot f dans un réseau de transport D
+
+A récupérer sur le cours du prof
+
+#### Algorithme
+
+##### Entrée/Sortie
+
+**Entrée :** Un réseau de transport $D_{s,t \in V}=(V,A)$ éventuellement parcouru d'un flot $c_a \longrightarrow \R_+ $
+
+**Sortie :** Un flot de valeur maximum et une st-coupe capacité minimum (égale à la valeur d'un flot)
+
+##### Corps
+
+<u>MARQUAGE (routine) :</u>
+
+**Initialisation :** Marquer S du label +.
+
+**Itération :** 
+
+Tant qu'il existe un sommet u marqué non traité :
+
+​	Traiter u, c'est à dire :
+
+  - Pour tout successeur v et u non marqué avec (v,u) non saturé :
+    		- Marquer v du label <u>+u</u>
+- Pour tout prédécesseur w et u non marqué avec (w,u) transportant du flot :
+  - Marquer w du label <u>-u</u> 
+
+Fin tant que.
+
+Si le puits est marqué, alors on a trouvé une chaine augmentante : il suffit de remonter les labels en partant du puits.
+
+Si le puits n'est pas marqué, alors le flot est maximum, et une st-coupe $\delta^+(X)$ de capacité minimum est donnée par l'ensemble $X$ des sommets marqués. 
+
+**Ford-Fulkerson**
+
+Tant que le puits est marqué lors de MARQUAGE:
+
+- Augmente le flot à l'aide de la chaine augmentante correspondante
+
+Fin tant que.
+

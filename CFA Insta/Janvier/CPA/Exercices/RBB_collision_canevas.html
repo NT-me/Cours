@@ -1,0 +1,205 @@
+<!--
+ * CPA - Conception et pratique de l'algorithmique.
+ * Copyright (C) 2014 <Binh-Minh.Bui-Xuan@ens-lyon.org>.
+ * GPL version>=3 <http://www.gnu.org/licenses/>.
+ * $Id: RBB_collision.html 2014-01-28 buixuan $
+//-->
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="UTF-8">
+
+<style type="text/css">
+#main_window{
+background-color:#f5f5f5;
+border:1px solid #e5e5e5;
+}
+</style>
+<script src="RBB_collision_canevas_fichiers/RBB_collision.js"></script></head>
+<body>
+  <canvas id="main_window" width="800" height="400"></canvas>
+
+
+
+<script type="text/javascript">
+    var callback = function() {setInterval(on_enter_frame,30);}
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.src = "https://www-apr.lip6.fr/~buixuan/files/RBB_collision.js";
+    script.onreadystatechange = callback;
+    script.onload = callback;
+    head.appendChild(script);
+
+
+/****************************************************
+ * Exercise 1: Collision entre cercle et bordure.   *
+ *                                                  *
+ * Les dimensions de la fenêtre courrante sont      *
+ * accessibles via les attributs suivantes.         *
+ *   - main_window.width                            *
+ *   - main_window.height                           *
+ *                                                  *
+ * Les attributs d'un objet circle:Cercle sont:     *
+ *   - circle.x                                     *
+ *   - circle.y                                     *
+ *   - circle.radius                                *
+ ****************************************************/
+
+    //collisionLeftBorder: Cercle --> boolean
+    //  revoie true ssi le cercle intersecte la bordure
+    //  gauche de la fenêtre courrante
+    function collisionLeftBorder(circle){
+    /*******************
+     * PARTIE A ECRIRE */
+     if (circle.x - circle.radius <= 0){
+       // console.log("Coté gauche touché")
+       return true;
+     }
+     else{
+       return false;
+     }
+    /*******************/
+    }
+
+    //collisionRightBorder: Cercle --> boolean
+    function collisionRightBorder(circle){
+    /*******************
+     * PARTIE A ECRIRE */
+     if (circle.x + circle.radius >= main_window.width){
+       // console.log("Coté droit touché")
+       return true;
+     }
+     else{
+       return false;
+     }
+    /*******************/
+    }
+
+    //collisionTopBorder: Cercle --> boolean
+    function collisionTopBorder(circle){
+    /*******************
+     * PARTIE A ECRIRE */
+     if (circle.y - circle.radius <= 0){
+       // console.log("Coté haut touché")
+       return true;
+     }
+     else{
+       return false;
+     }
+    /*******************/
+    }
+
+    //collisionBottomBorder: Cercle --> boolean
+    function collisionBottomBorder(circle){
+    /*******************
+     * PARTIE A ECRIRE */
+     if (circle.y + circle.radius >= main_window.height){
+       // console.log("Coté bas touché")
+       return true;
+     }
+     else{
+       return false;
+     }
+    /*******************/
+    }
+
+/******************************************************
+ * Exercise 2: Collision entre cercles                *
+ *                                                    *
+ * Les attributs d'un objet circle:Cercle sont:       *
+ *   - circle.x                                       *
+ *   - circle.y                                       *
+ *   - circle.radius                                  *
+ *                                                    *
+ * On peut utiliser les fonctions suivantes           *
+ * (mais ce n'est pas recommende):                    *
+ *   - Math.pow(x,y) renvoie x eleve a la puissance y.*
+ *   - Math.sqrt(x) renvoie la racine carrée de x.   *
+ ******************************************************/
+
+    //collisionCircles: Cercle * Cercle --> boolean
+    //  revoie true ssi les deux cercles s'intersectent
+    function collisionCircles(c1,c2){
+    /*******************
+     * PARTIE A ECRIRE */
+     var dx = c1.x - c2.x;
+     var dy = c1.y - c2.y;
+     var sommerayon = c1.radius + c2.radius;
+      return dx * dx + dy * dy <= sommerayon * sommerayon;
+    /*******************/
+    }
+
+/****************************************************
+ * Exercise 3: Collision cercle - rectangle         *
+ *                                                  *
+ * Les attributs d'un objet circle:Cercle sont:     *
+ *   - circle.x                                     *
+ *   - circle.y                                     *
+ *   - circle.radius                                *
+ *                                                  *
+ * Les attributs d'un objet box:Rectangle sont      *
+ *   - box.x                                        *
+ *   - box.y                                        *
+ *   - box.width                                    *
+ *   - box.height                                   *
+ * Le quatres coins du rectangle sont définis par   *
+ *   - (box.x, box.y)                               *
+ *   - (box.x+box.width, box.y)                     *
+ *   - (box.x, box.y+box.height)                    *
+ *   - (box.x+box.width, box.y+box.height)          *
+ ****************************************************/
+
+    //collisionCircleBox: Cercle * Rectangle --> boolean
+    //  revoie true ssi les deux objets s'intersectent
+    function collisionCircleBox(circle,box){
+    /*******************
+     * PARTIE A ECRIRE */
+     if (circle.x + circle.radius >= box.x
+       && circle.x - circle.radius <= box.x+box.width
+       && circle.y+ circle.radius >= box.y
+       && circle.y- circle.radius <= box.y+box.height){
+       return true;
+     }
+      return false;
+    /*******************/
+    }
+
+/****************************************************
+ * Mysterious exercise: Sound effects.              *
+ *   ---SOLUTION---                                 *
+ ****************************************************/
+    //onCollision: void --> void
+    //  cette fonction est appelée lorsqu'une collision est détectectée
+    function onCollision(){
+      //log("bing!");
+      var filepath='waterdrip.mp3'; //example
+      var audio = new Audio();
+      audio.src = filepath;
+      audio.controls = true;
+      audio.autoplay = true;
+      return;
+    }
+
+    var victory=false;
+    //onWin: void --> void
+    //  cette fonction est appelée lorsque la partie est gngnée
+    function onWin(){
+      if(!victory){
+        var filepath='fieldofflowers.mp3'; //example
+        var audio = new Audio();
+        audio.src = filepath;
+        audio.controls = true;
+        audio.autoplay = true;
+        //log("victory!");
+        victory=true;
+      }
+      return;
+    }
+
+    function log(msg) {
+      setTimeout(function() {
+        throw new Error(msg);
+      }, 0);
+    }
+
+</script>
+</body></html>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TME2_supportGUI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jars/TME2_supportGUI.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
