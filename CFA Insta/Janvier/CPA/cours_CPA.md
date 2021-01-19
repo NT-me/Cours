@@ -1,5 +1,9 @@
 # CPA
 
+[TOC]
+
+
+
 ## Généralité sur le temps d'exécution des algorithmes
 
 | n              | kB    | mB    | gB    | tB   |
@@ -16,9 +20,66 @@ Avec un ordinateur de l'ordre du Ghz (Soit $10^9$ calcul/s)
 
 ### Produit vectoriel
 
+Le produit vectoriel de deux vecteurs notés *a* et *b* dans un repère en deux dimensions :
+$$
+\begin{equation*}
+\begin{pmatrix}
+a_1 \\
+a_2 
+\end{pmatrix}
+\begin{pmatrix}
+b_1 \\
+b_2 
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_1 & b_1 \\
+a_2 & b_2 
+\end{pmatrix}
+= a_1b_2-a_2b_1
+\end{equation*}
+$$
+Donc dans le cas de deux vecteurs entre deux points mettons *u*(A, B) et *v*(C, D)
+$$
+(x_B-x_A)*(y_D-y_C)-(y_B-y_A)*(x_D-x_C)
+$$
+Si le résultat est :
+
+- < 0 CD est **sous** AB 
+
+- = 0 CD et AB sont colinéaires 
+
+- \> 0 CD est **au dessus** de AB dans le plan 
+
+#### Implémentation
+
+```java
+  int crossproduct(Point p, Point q, Point s, Point t){
+    return (((q.x-p.x)*(t.y-s.y))-((q.y-p.y)*(t.x-s.x)));
+  }
+```
+
+
+
 ### Produit scalaire
 
+![image-20210119195551697](C:\Users\Theo\AppData\Roaming\Typora\typora-user-images\image-20210119195551697.png)
+
+#### Implémentation
+
+```java
+  public double dotProd(Point p, Point q, Point s, Point t){
+    return ((q.x-p.x)*(t.x-s.x)+(q.y-p.y)*(t.y-s.y));
+  }
+```
+
+
+
 ### Positions barycentriques
+
+En mathématiques, le barycentre d'un ensemble fini de points du plan ou de l'espace est un point qui permet de réduire certaines combinaisons linéaires de vecteurs. Les coordonnées de ce barycentre dans un repère cartésien correspondent alors aux moyennes arithmétiques des coordonnées homologues de chacun des points considérés.
+
+
 
 ## Collision d'objets géométriques
 
@@ -223,7 +284,7 @@ Donc au total $O(n + n) = O(n)$
 
 ##### Implémentation
 
-![](/home/theo/Documents/Cours/CFA Insta/Janvier/CPA/Screenshot 2021-01-13 at 16.52.29.png)
+![](C:\Users\Theo\Documents\Cours\CFA Insta\Janvier\CPA\images\Screenshot 2021-01-13 at 16.52.29.png)
 
 ### Problème de l'enveloppe convexe
 
@@ -257,7 +318,7 @@ D'après le cours cet algorithme coûte $O(n^3)$
 
 #### Algorithme de Jarvis
 
-![](/home/theo/Documents/Cours/CFA Insta/Janvier/CPA/Animation_depicting_the_gift_wrapping_algorithm.gif)
+![](C:\Users\Theo\Documents\Cours\CFA Insta\Janvier\CPA\images\Animation_depicting_the_gift_wrapping_algorithm.gif)
 
 ##### Corps
 
@@ -321,7 +382,7 @@ Voici une implémentation qui marche pas trop trop : [ICI](https://github.com/gn
 
 **Idée :** Prendre le principe d'Akl-Toussaint mais aggrandir de manière incrémental la zone de suppression
 
-![](/home/theo/Documents/Cours/CFA Insta/Janvier/CPA/Animation_depicting_the_quickhull_algorithm.gif)
+![](C:\Users\Theo\Documents\Cours\CFA Insta\Janvier\CPA\images\Animation_depicting_the_quickhull_algorithm.gif)
 
 ##### Corps
 
@@ -360,15 +421,147 @@ Une implémentation est disponible [ICI](https://github.com/laetiitia/Toussaint/
 
 #### Algorithme naïf
 ##### Corps
+
+![](C:\Users\Theo\Documents\Cours\CFA Insta\Janvier\CPA\images\image-20210119184419396.png)
+
+```
+enveloppe = enveloppe convexe de Points
+aireMin = +infini
+rect = liste de sommet vide
+Pour tout côté pq de enveloppe :
+	s = coin de l'enveloppe le plus loin de (pq)
+	delta = droite passant par s, orthogonale à (pq)
+	t, u = coins de l'enveloppe le plus loin de delta dans les deux demi-plans définis par delta
+	d0 = droite passant par t, orthogonale à (pq)
+	d1 = droite passant par u, orthogonale à (pq)
+	d2 = droite passant par s, parallèle à (pq)
+	Nord, Est, Sud, Ouest = Intersections des droites (pq), (d0), (d1) et (d2)
+	Si aire(Nord, Est, Sud, Ouest) < aireMin:
+		aireMin = aire(Nord, Est, Sud, Ouest)
+		rect = [Nord, Est, Sud, Ouest]
+Retourner rect
+```
+
 ##### Coût
-##### Implémentation
+
+- Selon le cours $O(n^2)$
+
 #### Algorithme de Shamos
+
+![OMBB candidates](https://geidav.files.wordpress.com/2014/01/ombb_candidates.png?w=820)
+
+**Idée :** Prendre un "pied a coulisse" pour représenter le rectangle couvrant minimum tournant autour de l'enveloppe convexe.
+
 ##### Corps
+
+```
+enveloppe = enveloppe convexe de Points
+W = point le plus à l'ouest de enveloppe
+E = point le plus à l'Est de enveloppe
+left = droite verticale passant par W
+right = droite parralèle à left passant par E
+maintenir ce parralélisme tout le long le l'algo
+répéter jusqu'à ce que la condition (left passe par E ou right passe par W) se réalise deux fois :
+	next = côté de enveloppe formant angle min avec left
+	box = rectangle min contenant enveloppe passant par next
+	pivoter left et right pour l'un des deux contiennent next
+retourner le min des valeurs de box	
+```
+
 ##### Coût
-##### Implémentation
+
+D'après le cours : $O(n^2)$
+
 #### Algorithme de Toussaint
 ##### Corps
+
+```
+enveloppe = enveloppe convexe de Points
+Nord, Est, Sud, Ouest = Les points cardinaux de enveloppe
+aireMin = +Infini
+rect = rectangle
+construire les droites dN, dE, dS et dO passant respectivement par Nord, Est, Sud et Ouest
+Pour tout côté pq de enveloppe :
+	alpha = angle minimum formé par l'une des droites et l'un des côtés de enveloppe
+	faire effectuer aux 4 droites une rotation selon l'angle alpha
+	RECTANGLE = rectangle formé alors par dN, dE, dS et dO
+	Si aire(RECTANGLE) < aireMin :
+		aireMin = aire(RECTANGLE)
+		rect = RECTANGLE
+retourner rect
+```
+
+
+
 ##### Coût
+
+- 1 : Ici nous admettons une complexité de $O(n \log n)$ en utilisant Graham
+- 2 - 5 : Constructions en temps constant $O(1)$
+- 6 - 12 : $O(n)$
+
+Donc : $O(n)$
+
 ##### Implémentation
 
+Une implémentation est disponible [ICI](	public static Point[] getRectMin(ArrayList<Point> enveloppe){)
+
+### Problème du diamètre optimisé
+
+Problème du diamètre d'un ensemble de points
+
+**Entrée** : *Points* un ensemble de points
+
+**Sortie :** *Diamètre* liste de deux points de distance maximum
+
+#### Paire antipodales
+
+**Idée :**  Une paire { A , B } de points de Points est antipodale s’il existe 2 droites parallèles passant par A et B telles que la bande du plan entre ces deux droites contient tous les points de Points.
+
+**Propriété** : le diamètre de Points est la distance maximum entre deux points d’une paire antipodale de Points
+
+**Propriété** : il y a au plus 2·n (plus quelques) de paires antipodales d’un ensemble Points de n points.
+
+##### Implémentation
+
+```java
+  public ArrayList<Line> calculPairesAntipodales(ArrayList<Point> points){
+    ArrayList<Point> p = algoJarvis(points);
+    int n = p.size();
+    ArrayList<Line> antipodales = new ArrayList<Line>();
+    int k = 1;
+    while(distance(p.get(k), p.get(n-1), p.get(0)) < distance(p.get((k+1)%n), p.get(n-1), p.get(0))) ++k;
+    int i = 0;
+    int j = k;
+    while (i<=k && j<n){
+      while (distance(p.get(j), p.get(i), p.get(i+1)) < distance(p.get((j+1)%n), p.get(i), p.get(i+1)) && j<n-1){
+        antipodales.add(new Line(p.get(i), p.get(j)));
+        ++j;
+      }
+      antipodales.add(new Line(p.get(i), p.get(j)));
+      ++i;
+    }
+    return antipodales;
+  }
+```
+
+```java
+  public Line trouverDiametreOpti(ArrayList<Point> points){
+    if (points.size()<3) {
+      return null;
+    }
+
+    ArrayList<Line> pa = calculPairesAntipodales(points);
+    double taille_max = Double.MIN_VALUE;
+    Line diametre = new Line(new Point(), new Point());
+
+    for (Line l : pa){
+      if(l.getP().distance(l.getQ()) > taille_max){
+        taille_max = l.getP().distance(l.getQ());
+        diametre = l;
+      }
+    }
+
+    return diametre;
+  }
+```
 
