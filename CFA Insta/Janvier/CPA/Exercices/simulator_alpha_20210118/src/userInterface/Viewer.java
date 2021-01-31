@@ -93,6 +93,7 @@ public class Viewer implements ViewerService, RequireReadService, RequireStartEn
 
     for(Enumeration enm = lOfL.elements(); enm.hasMoreElements();){
       for(Line L : (ArrayList<Line>)enm.nextElement()){
+          L.setStroke(Color.BLUE);
         panel.getChildren().add(L);
       }
     }

@@ -48,7 +48,7 @@ public class Engine implements EngineService, RequireDataService, RequireAlgorit
         algorithm.stepAction();
         data.setStepNumber(data.getStepNumber()+1);
       }
-    },0,10);
+    },0,100);
   }
 
   @Override

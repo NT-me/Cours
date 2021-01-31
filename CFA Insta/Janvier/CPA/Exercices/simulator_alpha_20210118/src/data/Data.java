@@ -154,24 +154,25 @@ public class Data implements DataService{
     }
 
     for (ImObject obj : listObjIm){
+
       if (obj.collision(new Position(p.x + taille, p.y))){
-        p = getOtherPosition();
-        p = new Position(p.x + taille, p.y);
-        break;
-      }
-      if (obj.collision(new Position(p.x - taille, p.y))){
         p = getOtherPosition();
         p = new Position(p.x - taille, p.y);
         break;
       }
+      if (obj.collision(new Position(p.x - taille, p.y))){
+        p = getOtherPosition();
+        p = new Position(p.x + taille, p.y);
+        break;
+      }
       if (obj.collision(new Position(p.x, p.y + taille))){
         p = getOtherPosition();
-        p = new Position(p.x, p.y + taille);
+        p = new Position(p.x, p.y - taille);
         break;
       }
       if (obj.collision(new Position(p.x, p.y - taille))){
         p = getOtherPosition();
-        p = new Position(p.x, p.y - taille);
+        p = new Position(p.x, p.y + taille);
         break;
       }
     }

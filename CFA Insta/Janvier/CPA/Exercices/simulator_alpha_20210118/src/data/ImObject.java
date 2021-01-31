@@ -73,8 +73,8 @@ public class ImObject {
 
 
     public boolean collision(Position verifPoint){
-        for (Position pos : this.aire){
-            if (verifPoint.compareTo(pos)){
+        if (verifPoint.x >= SE.getX() && verifPoint.x <= NO.getX()){
+            if(verifPoint.y >= SE.getY() && verifPoint.y <= NO.getY()){
                 return true;
             }
         }
