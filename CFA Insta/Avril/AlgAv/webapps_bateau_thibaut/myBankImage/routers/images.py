@@ -4,6 +4,7 @@ import utils as u
 from myBankImage.data.models import Image
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from typing import Optional
 
 
 ADRESS_CANVA = u.ADRESS_CANVA
@@ -20,11 +21,14 @@ session = Session()
 
 
 @router.get("/random/")
-def show_random_image():
+def show_random_image(redirect: Optional[bool]):
     import random
     rand = random.randrange(0, session.query(Image).count())
     row = session.query(Image)[rand]
-    return RedirectResponse(row.url)
+    if redirect:
+        return RedirectResponse(row.url)
+    else:
+        return {"url": row.url}
 
 
 @router.get("/{id}/")

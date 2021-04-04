@@ -29,9 +29,14 @@ def show_one_product(id):
 
 
 @router.get("/product/{id}/image/{i_id}")
-def show_one_product_image(id, i_id: Optional[int]):
-    return RedirectResponse("http://127.0.0.1:8000/myImage/random/")
+def show_one_product_image(id, i_id, redirect: Optional[bool]):
+    if redirect:
+        return RedirectResponse("http://127.0.0.1:8000/mbi/myImage/random/")
+    else:
+        r = requests.get(url="http://127.0.0.1:8000/mbi/myImage/random/?redirect=false")
+        return r.json()
+
 
 @router.get("/product/{id}/image/")
 def show_one_product_main_image(id):
-    return RedirectResponse("http://127.0.0.1:8000/myImage/random/")
+    return RedirectResponse("http://127.0.0.1:8000/mbi/myImage/random/")
