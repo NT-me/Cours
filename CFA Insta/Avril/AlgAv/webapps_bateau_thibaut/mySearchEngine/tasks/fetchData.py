@@ -4,6 +4,7 @@ from mySearchEngine.data.models import Products
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from apscheduler.schedulers.background import BackgroundScheduler
+import random as ran
 
 sched = BackgroundScheduler()
 db_string = u.DB_PATH
@@ -22,7 +23,9 @@ def fetchProducts():
         available = 1 if item["availability"] else 0
         sale = 1 if item["sale"] else 0
         category = "POI" if item["category"] == 0 else ("CRU" if item["category"] == 1 else "COQ")
-        pr = Products(pid=pid, avaible=available, sale=sale, category=category)
+        quantityInStock = ran.randint(1, 20) if item["availability"] else 0
+        discount = item["discount"]
+        pr = Products(pid=pid, avaible=available, sale=sale, category=category, quantityInStock=quantityInStock, discount=discount)
         try:
             session.add(pr)
             session.commit()

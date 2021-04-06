@@ -1,4 +1,4 @@
-import requests/
+import requests
 import utils as u
 from myImageEngine.data.models import Image
 from sqlalchemy import create_engine

@@ -23,7 +23,7 @@ def listProductsByCategory(category):
     res = []
     for item in resDB:
         r = requests.get(url=ADRESS_CANVA + "tig/product/{}".format(item.pid))
-        res.append(r.json())
+        res.append(resDB.first().retValue(r.json()))
     return res
 
 

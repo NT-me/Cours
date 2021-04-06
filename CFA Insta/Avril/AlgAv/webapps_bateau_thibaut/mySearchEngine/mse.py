@@ -1,6 +1,6 @@
 import utils as u
 from fastapi import FastAPI
-from mySearchEngine.routers import products, shipPoints, available, sales, category
+from mySearchEngine.routers import products, shipPoints, available, sales, category, infoproduct, stocks
 from mySearchEngine.tasks import fetchData as fd
 from mySearchEngine.data.models import Products, Base
 from sqlalchemy import create_engine
@@ -18,11 +18,13 @@ Base.metadata.create_all(db_sal)
 fd.fetchProducts()
 
 
-app.include_router(products.router)
+# app.include_router(products.router)
 app.include_router(available.router)
 app.include_router(shipPoints.router)
 app.include_router(category.router)
 app.include_router(sales.router)
+app.include_router(infoproduct.router)
+app.include_router(stocks.router)
 
 
 @app.get("/helloworld")

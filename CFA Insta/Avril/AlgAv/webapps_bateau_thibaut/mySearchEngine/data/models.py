@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, UniqueConstraint
+from sqlalchemy import Column, Integer, Float, String, UniqueConstraint
 Base = declarative_base()
 
 
@@ -10,4 +10,12 @@ class Products(Base):
     avaible = Column(Integer)
     sale = Column(Integer)
     category = Column(String)
+    quantityInStock = Column(Integer)
+    discount = Column(Float)
     __table_args__ = (UniqueConstraint('pk'), UniqueConstraint('pid'))
+
+    def retValue(self, remoteJSON):
+        remoteJSON["discount"] = self.discount
+        remoteJSON["sale"] = bool(self.sale)
+        remoteJSON["quantityInStock"] = self.quantityInStock
+        return remoteJSON
