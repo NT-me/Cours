@@ -21,7 +21,7 @@ session = Session()
 
 
 @router.get("/random/")
-def show_random_image(redirect: Optional[bool]):
+def show_random_image(redirect: Optional[bool] = True):
     import random
     rand = random.randrange(0, session.query(Image).count())
     row = session.query(Image)[rand]
@@ -32,10 +32,13 @@ def show_random_image(redirect: Optional[bool]):
 
 
 @router.get("/{id}/")
-def show_one_image(id):
+def show_one_image(id, redirect: Optional[bool] = True):
     resDB = session.query(Image).filter(Image.pk == id)
     ret = resDB.first()
     if ret:
-        return RedirectResponse(ret.url)
+        if redirect:
+            return RedirectResponse(ret.url)
+        else:
+            return {"url": ret.url}
     else:
         raise HTTPException(status_code=404, detail="Item not found")

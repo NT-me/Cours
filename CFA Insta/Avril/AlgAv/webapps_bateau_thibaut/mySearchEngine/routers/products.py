@@ -11,29 +11,30 @@ router = APIRouter(
             )
 
 
-@router.get("/products")
-def show_all_prodcuts():
-    r = requests.get(url=ADRESS_CANVA + "tig/products")
-    return r.json()
-
-
-@router.get("/product/{id}")
-def show_one_product(id):
-    r = requests.get(url=ADRESS_CANVA + "tig/product/{}".format(id))
-    try:
-        if r.json()["detail"] == "Not found.":
-            raise HTTPException(status_code=404, detail="Item not found")
-    except KeyError:
-        pass
-    return r.json()
+# @router.get("/products")
+# def show_all_prodcuts():
+#     r = requests.get(url=ADRESS_CANVA + "tig/products")
+#     return r.json()
+#
+#
+# @router.get("/product/{id}")
+# def show_one_product(id):
+#     r = requests.get(url=ADRESS_CANVA + "tig/product/{}".format(id))
+#     try:
+#         if r.json()["detail"] == "Not found.":
+#             raise HTTPException(status_code=404, detail="Item not found")
+#     except KeyError:
+#         pass
+#     return r.json()
 
 
 @router.get("/product/{id}/image/{i_id}")
 def show_one_product_image(id, i_id, redirect: Optional[bool]):
+    ADRESSE = "http://127.0.0.1:8000/mbi/myImage/{}/?redirect=false".format(i_id)
     if redirect:
-        return RedirectResponse("http://127.0.0.1:8000/mbi/myImage/random/")
+        return RedirectResponse(ADRESSE)
     else:
-        r = requests.get(url="http://127.0.0.1:8000/mbi/myImage/random/?redirect=false")
+        r = requests.get(url=ADRESSE)
         return r.json()
 
 

@@ -18,7 +18,7 @@ Base.metadata.create_all(db_sal)
 fd.fetchProducts()
 
 
-# app.include_router(products.router)
+app.include_router(products.router)
 app.include_router(available.router)
 app.include_router(shipPoints.router)
 app.include_router(category.router)
