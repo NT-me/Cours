@@ -60,7 +60,7 @@ def processKnuth(X):
         while X < 10 ** 9:
             X *= 10
     elif neededLine == 12:
-        X = (X * (X - 1))// (10 ** 5)
+        X = ((X * (X - 1))// (10 ** 5)) % 10
     return X
 
 
