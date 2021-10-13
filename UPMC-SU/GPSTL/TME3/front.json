@@ -1,0 +1,181 @@
+{
+    "mockup": {
+        "controls": {
+            "control": [
+                {
+                    "ID": "0",
+                    "typeID": "BrowserWindow",
+                    "zOrder": "0",
+                    "w": "1280",
+                    "h": "720",
+                    "measuredW": "450",
+                    "measuredH": "400",
+                    "x": "55",
+                    "y": "6",
+                    "locked": "true",
+                    "properties": {
+                        "text": "Product name - Result\nhttps://product.domain"
+                    }
+                },
+                {
+                    "ID": "1",
+                    "typeID": "SearchBox",
+                    "zOrder": "1",
+                    "w": "614",
+                    "measuredW": "120",
+                    "measuredH": "26",
+                    "x": "71",
+                    "y": "96",
+                    "properties": {
+                        "text": "cat dog"
+                    }
+                },
+                {
+                    "ID": "2",
+                    "typeID": "Image",
+                    "zOrder": "2",
+                    "w": "430",
+                    "h": "471",
+                    "measuredW": "600",
+                    "measuredH": "600",
+                    "x": "483",
+                    "y": "148",
+                    "properties": {
+                        "borderStyle": "square",
+                        "src": {
+                            "ID": "2E91906E-B981-460F-859F-17B6EEEB7005"
+                        }
+                    }
+                },
+                {
+                    "ID": "5",
+                    "typeID": "TagCloud",
+                    "zOrder": "3",
+                    "w": "260",
+                    "h": "41",
+                    "measuredW": "350",
+                    "measuredH": "110",
+                    "x": "565",
+                    "y": "655",
+                    "properties": {
+                        "text": "dog happy portrait {color:#FF0000}face{color} meme \"teddy bear\""
+                    }
+                },
+                {
+                    "ID": "6",
+                    "typeID": "Link",
+                    "zOrder": "4",
+                    "measuredW": "120",
+                    "measuredH": "28",
+                    "x": "638",
+                    "y": "627",
+                    "properties": {
+                        "text": "Image name",
+                        "size": "20"
+                    }
+                },
+                {
+                    "ID": "7",
+                    "typeID": "ButtonBar",
+                    "zOrder": "5",
+                    "measuredW": "193",
+                    "measuredH": "21",
+                    "x": "1092",
+                    "y": "619",
+                    "properties": {
+                        "text": "Fullscreen, Download"
+                    }
+                },
+                {
+                    "ID": "8",
+                    "typeID": "PointyButton",
+                    "zOrder": "6",
+                    "measuredW": "150",
+                    "measuredH": "64",
+                    "x": "139",
+                    "y": "334",
+                    "properties": {
+                        "borderStyle": "none",
+                        "direction": "center",
+                        "text": "Previous",
+                        "icon": {
+                            "ID": "angle-double-left",
+                            "size": "xlarge"
+                        },
+                        "href": {
+                            "ID": "CD8EAFCC-20BC-49B4-A661-75128B2ECBDE"
+                        }
+                    }
+                },
+                {
+                    "ID": "10",
+                    "typeID": "PointyButton",
+                    "zOrder": "7",
+                    "measuredW": "119",
+                    "measuredH": "64",
+                    "x": "1129",
+                    "y": "334",
+                    "properties": {
+                        "borderStyle": "none",
+                        "direction": "center",
+                        "icon": {
+                            "ID": "angle-double-left",
+                            "size": "xlarge"
+                        },
+                        "text": "Next",
+                        "rotation": "180",
+                        "state": "disabled"
+                    }
+                },
+                {
+                    "ID": "13",
+                    "typeID": "Paragraph",
+                    "zOrder": "8",
+                    "w": "99",
+                    "h": "16",
+                    "measuredW": "275",
+                    "measuredH": "80",
+                    "x": "695",
+                    "y": "101",
+                    "properties": {
+                        "text": "Image : 2/2"
+                    }
+                },
+                {
+                    "ID": "14",
+                    "typeID": "PointyButton",
+                    "zOrder": "9",
+                    "measuredW": "79",
+                    "measuredH": "27",
+                    "x": "1206",
+                    "y": "95",
+                    "properties": {
+                        "borderStyle": "none",
+                        "direction": "center",
+                        "text": "Back",
+                        "href": {
+                            "ID": "4455FF2A-834A-490B-9F1C-FBBA3C680A73"
+                        },
+                        "icon": {
+                            "ID": "undo",
+                            "size": "small"
+                        }
+                    }
+                }
+            ]
+        },
+        "attributes": {
+            "name": "Focus on dog",
+            "order": 938447.0576747427,
+            "parentID": null,
+            "notes": null
+        },
+        "branchID": "Master",
+        "resourceID": "E15E5E03-E334-403A-A0FD-D01D8F73D779",
+        "mockupH": "720",
+        "mockupW": "1280",
+        "measuredW": "1335",
+        "measuredH": "726",
+        "version": "1.0"
+    }
+}

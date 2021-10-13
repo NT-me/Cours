@@ -1,0 +1,13 @@
+Bonjour,
+
+Suite notre discussion j'ai imaginé une autre solution : je récupère le développement du front end (Chose que j'ai appris durant ma formation au CFA INSTA, célèbre école de son état). Cette nouvelle organisation permet de limité l'impact du départ de Cindy. En prenant en charge le développement du front end (que vous savez léger, la réelle plus value de ce POC ce situe dans le back end) nous limiterons les coûts et les retard a 4 jours tout au plus. Bob pourra se joindre à moi pour le kickoff du front end de façon a avoir un départ énergique.
+
+Je vous transmet don ci-joint ma maquette et le nouveau Gantt.
+
+Coridalement,
+
+Alice
+
+
+
+PS : La maquette est uassi disponible ici : https://balsamiq.cloud/swekdq1/pdta6ya

@@ -5,6 +5,8 @@ from utils import specialValues as sv
 
 def parse(result):
 
+    print(result)
+
     while cont.containParenthese(result):
         result = processParenthese(result)
 
@@ -28,7 +30,8 @@ def parse(result):
 def preparse(inputRegex):
     result = []
     for char in inputRegex:
-        result.append(Ret(char, []))
+        if char != '.':
+            result.append(Ret(char, []))
     return parse(result)
 
 
@@ -167,6 +170,7 @@ def removeProtection(tree):
 def returnRet():
     inputRegex = input("Entrez une Regex valide:\n")
     return preparse(str(inputRegex))
+
 
 if __name__ == '__main__':
     inputRegex = input("Entrez une Regex valide:\n")

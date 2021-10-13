@@ -23,44 +23,76 @@ def decreaseEveryDigit(inputNb):
     for i in range(0, digits):
         tmp = inputNb
         tmp -= 10 ** i
-        if "9" not in str(tmp // (10 ** i)):
-            inputNb = tmp
+        if i != 0:
+            if ((inputNb % (10 ** (i+1))) //(10 ** i)) != 0:
+                inputNb = tmp
+        else:
+            if inputNb % (10 ** (i+1)) != 0:
+                inputNb = tmp
     return inputNb
 
 
 def processKnuth(X):
     Z = (X // (10 ** 8) ) % 10
     neededLine = Z + 3
-    print("Etape:{}".format(neededLine))
 
     if neededLine == 3:
         if X < 5*(10**9):
             X += 5*(10**9)
-    elif neededLine == 4:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 4:
         X = ((X ** 2)//(10**5)) % (10**10)
-    elif neededLine == 5:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 5:
         X = (1001001001 * X) % (10**10)
-    elif neededLine == 6:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 6:
         if X < (10**8):
             X += 9814055677
         else:
             X = (10**10) - X
-    elif neededLine == 7:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 7:
         X = (10 ** 5) * (X % (10 ** 5)) + X // (10**5)
-    elif neededLine == 8:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 8:
         X = (1001001001 * X) % (10 ** 10)
-    elif neededLine == 9:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 9:
         X = decreaseEveryDigit(X)
-    elif neededLine == 10:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 10:
         if X < (10 ** 5):
             X = (X ** 2) + 99999
         else:
             X = X - 99999
-    elif neededLine == 11:
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 11:
         while X < 10 ** 9:
             X *= 10
-    elif neededLine == 12:
-        X = ((X * (X - 1))// (10 ** 5)) % 10
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+        neededLine += 1
+
+    if neededLine == 12:
+        X = ((X * (X - 1))// (10 ** 5)) % (10 ** 10)
+        print("Etape:{0}\nX:{1}".format(neededLine, X))
+
     return X
 
 
