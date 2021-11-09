@@ -594,5 +594,56 @@ On suppose que les tags sont a 100% issus des URL des images.
 
 ## RH
 
+# Semaine 4
 
+## Profile d’Alice sur le Maslow
+
+| Niveaux   | Pourcentage | Commentaire                                                  |
+| --------- | ----------- | ------------------------------------------------------------ |
+| **Niv 5** | 80%         | Résout les problème qui se présente a elle depuis le début, garde la confiance de ses supérieurs tout en gardant une vie perso agréable. |
+| **Niv 4** | 70%         | Après un Master STL on ne peut qu'avoir une haute estime de soi ! |
+| **Niv 3** | 80%         | A une famille et un groupe d'amis aimant, ses collègues l'apprécie aussi |
+| **Niv 2** | 60%         | Son équipe se délite semaine après semaine, c'est stressant ! |
+| **Niv 1** | 90%         | Gagne assez bien leur vie                                    |
+
+
+
+## Celui de Gaby 
+
+| Niveaux   | Pourcentage | Commentaire                                                  |
+| --------- | ----------- | ------------------------------------------------------------ |
+| **Niv 5** | 80%         | Sûr de lui, poisition pro et sociale acquise et stable, estimé dans son champs d'expertise, continu de vivre sur le fil et est donc sûr de sa capacité a toujours assumer un *after-work* arrosé et cher le lendemain autant au travail que dans sa vie perso. |
+| **Niv 4** | 80-90%      | Semble avoir une certaine estime de lui-même (proximité avec la direction, forte sociabilité, dev rockstar) |
+| **Niv 3** | 80%         | Populaire dans sa vie pro, sa perso ne semble pas un problème |
+| **Niv 2** | 60-70%      | Vie comme un invité de la table de Mécène et est donc toujours sur le fil |
+| **Niv 1** | 90%         | Gagne assez bien leur vie                                    |
+
+
+
+## Celui de Harry
+
+| Niveaux   | Pourcentage | Commentaire                                                  |
+| --------- | ----------- | ------------------------------------------------------------ |
+| **Niv 5** | 50%         | Heureux d'avoir enfin rejoint le comEx après un parcourt aussi pénible, Harry a besoin de prendre du galon, a défaut d'avoir du talent, pour être mieux vu socialement. |
+| **Niv 4** | 40%         | Court après Alice et est particulièrement démago. Il sait qu'il a besoin d'elle pour s'assurer une promotion dans la hiérarchie. |
+| **Niv 3** | 30%         | Mal aimé dans sa famille, mal aimé en milieu pro             |
+| **Niv 2** | 80%         | Issu de la haute société, stabilité dans les revenus et dans l'abri (possède un grand domaine) |
+| **Niv 1** | 90%         | Gagne assez bien leur vie                                    |
+
+
+
+## Critiques du modèle de Maslow
+
+Le modèle est criticable sur plusieurs point si l'ont en croit son article wikipédia :
+
+- Manque de donnée sur lequelles s'est basé M.Maslow
+- Modèle applicable principlement aux populations occidentales
+- Aucun lien de causalité n'a jamais été prouvé entre les différents besoins et Maslow lui-même n'a jamais cherché à les montrer
+- La modèle est quasiment totalement réfuté de nos jours par le monde scientifique
+
+## Votre choix final du nouveau chef d’équipe
+
+En terme de choix final je prendrais Gaby, en effet ce dernier est un collègue sympathique et particulièrement compétent. 
+
+Si ce dernier n'est pas disponible je préférais prendre moi même le poste que de laisser le poste a un opportuniste incompétent et mal dans ses bottes qui ne manquerait pas de faire capoter le projet et de faire porter le chapeau a un des membres de l'équipe pour ne se ajouter un nouvel échec a son parcours.
 
