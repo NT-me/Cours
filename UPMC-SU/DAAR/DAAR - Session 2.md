@@ -114,3 +114,90 @@ Les vrai-jumaux sont les ensembles restant de taille 2
 | 5    | 2 = deg(z)  |
 
 **Total :** $\sum_{v \in V} deg(v)=O(m)$
+
+### Cas de graphe temporel
+
+$G_\Tau$ :
+
+```mermaid
+flowchart TB;
+A0 --- W0
+A0 --- N0
+H0 --- F0
+
+W1 --- N1
+H1 --- F1
+
+A2 --- W2
+W2 --- N2
+W2 --- H2
+N2 --- H2
+H2 --- F2
+
+A3 --- W3
+A3 --- N3
+W3 --- N3
+W3 --- H3
+N3 --- H3
+H3 --- F3
+
+W4 --- N4
+H4 --- F4
+
+W5 --- N5
+H5 --- F5
+
+W6 --- N6
+H6 --- F6
+	subgraph A
+	A0
+	A1
+	A2
+	A3
+	A4
+	A5
+	A6
+	end
+	subgraph W
+	W0
+	W1
+	W2
+	W3
+	W4
+	W5
+	W6
+	end
+	subgraph N
+	N0
+	N1
+	N2
+	N3
+	N4
+	N5
+	N6
+	end
+	subgraph H
+	H0
+	H1
+	H2
+	H3
+	H4
+	H5
+	H6
+	end
+	subgraph F
+	F0
+	F1
+	F2
+	F3
+	F4
+	F5
+	F6
+	end
+```
+
+**Définition jumaux éternels et $\Delta$-jumaux :**
+
+- $\{u,v\}$ jumaux éternals *ssi* $\forall i, \{u,v\}$ jumaux dans $G_\Tau $
+- Pour $\Delta \in N,\{u,v\}$ $\Delta$-jumaux *ssi* $\exist t$ tel que $\{u,v\}$ jumaux dans $G_i \forall t \le i < t + \Delta$
+
