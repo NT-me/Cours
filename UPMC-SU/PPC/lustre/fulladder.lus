@@ -1,0 +1,56 @@
+
+(* Heptagon 1.05 does not implement the `xor` operator properly.
+   The work-around is to use `<>`. *)
+
+node full_add(a, b, c : bool) returns (s, co : bool);
+let
+  s = ((a <> b) <> c);
+  co = (  ( (a and b)  or ( b and c ) )    or  (a and c ) );
+tel;
+
+node half_add(a, b : bool) returns (s, co : bool);
+let
+  s = (a <> b);
+  co = (a and b);
+tel;
+
+
+node full_add_h(a, b, c : bool) returns (s, co : bool);
+var s1, c1, c2 : bool;
+let
+  (s1, c1) = half_add(a, b);
+  (s, c2) = half_add(c, s1);
+  co = (c2 or c1);
+
+tel;
+
+(*
+node equivalence(a, b, c : bool) returns (ok : bool);
+let
+tel;
+*)
+
+node always(i: bool) returns (o:bool);
+let
+  o = i -> pre o and i;
+tel;
+
+node count_true(i: bool) returns (o:int);
+let
+  o = (if i then 1 else 0) ->
+                          if i then (pre o) + 1
+                          else pre o;
+tel;
+
+node count_succ_true(i: bool) returns (o: int);
+let
+  o = (if i then 1 else 0) ->
+                          if i then (pre o) + 1
+                          else 0;
+tel;
+
+node bounds(i: int) returns (min, max: int);
+let
+   max = i -> if i > pre max then i else pre max;
+   min = i -> if i < pre min then i else pre min;
+tel;
