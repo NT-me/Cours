@@ -201,3 +201,124 @@ H6 --- F6
 - $\{u,v\}$ jumaux éternals *ssi* $\forall i, \{u,v\}$ jumaux dans $G_\Tau $
 - Pour $\Delta \in N,\{u,v\}$ $\Delta$-jumaux *ssi* $\exist t$ tel que $\{u,v\}$ jumaux dans $G_i \forall t \le i < t + \Delta$
 
+## Intervalles
+
+### TME
+
+[Intervalles.md](./Session 2 - TME1/Intervalles.md)
+
+### Rappels intervalles dans $\mathbb{R}/\mathbb{N}$
+
+- $\cap$ : Deux intervalles qui s'intersectent
+- $\cup$ : Union de deux intervalles
+- $\text{ \\ }$ : Privé de 
+
+![Schéma des rappels d'intervalles - photos du cours](https://cdn.discordapp.com/attachments/828925501719838730/948129570400403476/IMG_20220301_090800.jpg)
+
+### Module (intervalles de permutation, clusters de zéro...)
+
+**Exemple des gènes :**
+
+| Nom de l'espèce | Gènes |      |      |      |      |      |      |      |      |
+| --------------- | ----- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| ID              | 1     | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    |
+| P               | 9     | 8    | 5    | 6    | 4    | 7    | 3    | 2    | 1    |
+
+**Intervalles communs :**
+
+- `{1,2,3}`
+- `{1,2}`
+- `{2,3}`
+- `{1, ..., 7}`
+- `{1, ..., 8}`
+- `{1, ..., 9}`
+- `{9,8}`
+- `{5,6}`
+- `{4,5,6}`
+- `{4, ..., 7}`
+- `{4, ..., 9}`
+
+**V = `{1,2,3,... 9}`** :
+
+```mermaid
+graph TD;
+A((L))
+B((S))
+C((S))
+D((L))
+E((//))
+F((//))
+
+A --> E
+A --> F --> B --> C
+A --> D
+
+D --> 1
+D --> 2
+D --> 3
+
+F --> 7
+
+E --> 8
+E --> 9
+
+C --> 5
+C --> 6
+```
+
+>L : Linéaire
+>
+>S : ???
+>
+>// : Non typé
+
+### Biclique
+
+**Exemple :**
+
+| *ID article \ Id propriété*   | ailes | Froid | Sucré | Goût fruité |
+| ----------------------------- | ----- | ----- | ----- | ----------- |
+| **Poulet**                    | 1     | 1     | 0     | 0           |
+| **Canard congelé à l'orange** | 1     | 1     | 1     | 1           |
+| **Glace vanille**             | 0     | 1     | 1     | 0           |
+| **Bonbon**                    | 0     | 0     | 1     | 1           |
+| **Confiture**                 | 0     | 0     | 1     | 1           |
+
+Ce tableau nous donne les aliments en fonctions de prpriétés arbitaire. Cela permet de créer un graphe bipartie avec d'un côté les aliments et de l'autre les propriétés :
+
+```mermaid
+graph RL;
+subgraph Articles
+1[Poulet]
+2[Canard]
+3[Glace]
+4[Bonbon]
+5[Confiture]
+end
+
+subgraph Propriétés
+A[Ailes]
+B[Froid]
+C[Sucré]
+D[Goût fruité]
+end
+
+1 --- A
+1 --- B
+
+2 --- A
+2 --- B
+2 --- C
+2 --- D
+
+3 --- B
+3 --- C
+
+4 --- C
+4 --- D
+
+5 --- C
+5 --- D
+
+```
+
