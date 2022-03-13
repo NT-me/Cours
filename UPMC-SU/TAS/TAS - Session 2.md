@@ -18,3 +18,11 @@ Il existe plusieurs type de sémantique, celle qui a été choisie c'est la sém
 
 #### Ordres partiels
 
+## Interprétation abstraite
+
+
+
+## Le domaine des intervalles
+
+Idée : Abstraire les comportements du programme par une borne supérieure et une bore inférieure pour variable.
+
