@@ -390,3 +390,36 @@ graph de Lee
 
 Contrairement à une distance euclidienne qui est une distance plus arithmétique la distance de Jaccard est un approche plus ensembliste.
 
+## Page rank
+
+### TCS
+
+**Théorème (du point fixe):** Soit $M$ matrice carré stochastique. Alors $\lambda=1$ est vecteur propre de $M$.
+
+**Preuve :** Soit $v= \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ \vdots \\ 1  \end{pmatrix}$ Alors $^tMv=\lambda v$
+
+Donc $\lambda = 1$ est valeur propre de $^tM$.
+
+Donc $\lambda = 1$ est valeur propre de $M$. 
+
+### IT
+
+$\lambda$ est vecteur propre de $M$ si $\exist v \ tq \ Mv = \lambda v$ 
+
+**Lemme 1:** $(M^k)_{k \in \mathbb{N}}$ converge vers les valeurs de $v_{fixe}$ sur la diagonale.
+
+**Lemme 2:** $v_0$ = aléatoire; $v_{k+1} = Mv_k$; $(v_k)_{k \in \mathbb{N}}$ converge vers $v_{fixe}$.
+
+**Théorème :** Pour $G=(V,A)$ le graphe du web + hyperliens $\Bigg\{ \begin{matrix} La\ convergence\ est\ "sympa" \\ \#\ itérations\ est\ \approx 300\ pour\ \epsilon = 10^{-6} \end{matrix}$
+
+![Image](https://media.discordapp.net/attachments/828925501719838730/953216401869516810/IMG_20220315_100126.jpg?width=1099&height=603)
+
+```java
+double[] vect = [.2, .2, .2, .2, .2];
+
+for(){
+    vect = multiplie(M, vect);
+}
+return vect;
+```
+
