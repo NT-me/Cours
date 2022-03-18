@@ -1,0 +1,7 @@
+<expéditeur>:<destinataire>:<commande>:<arg1>:<arg2>:<EOF>
+
+Liste des commandes :
+ - Position d'un ennemi :
+	COM : ENPOS
+	arg1: type du robot ennemi
+	arg2: position du robot ennemi  

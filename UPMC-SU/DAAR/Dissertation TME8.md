@@ -99,7 +99,7 @@ Dans le cadre d'une graphe temporel il s'agit d'une liste de matrice d'adjacence
 
 Ce type de représentation présente un problème majeur : la place prise en mémoire. En effet la taille croît de façon polynomiale $n^2$ avec $n$ le nombre de sommets. Pour un graphe temporel cette problématiques est renforcé par la multiplication des graphes. On arrive a $n^2 * \tau$ avec $\tau$ la taille de l'historique du graphe temporel.
 
-### Présentation
+#### Présentation
 
 >**Entrées :** Graphe temporel $L : (T,V,E)$ 
 >
@@ -109,62 +109,162 @@ Le but de cet algorithme est donc de retourner la liste de l'ensemble des pairs 
 
 Pour cela l'algorithme va s'appuyer la technique dites "*triangular structure of splitters*" ou "structure triangulaire de séparation", l'objectif va être de trouver un sommet $u$ qui prouve que $w$ et $v$ ne sont pas liés. De plus cette technique a comme avantage supplémentaire de ne pas nécessiter obligatoirement des matrices d'adjacence en entrée, en effet une simple liste d'arêtes est suffisante.
 
-L'objectif va donc 
+On considère d'abord chaque couple comme des jumeaux éternels. Ensuite l'objectif va être, pour chaque couple, de rechercher si un sommet ne permet de prouver qu’ils ne forment pas des jumeaux éternels. En effet si l'on prend une arrête liant les sommets $v$ et $u$ à un instant $t$ et un sommet $w$ et que ce dernier n'est lié à aucun moment avec $u$ alors $v$ et $w$ ne peuvent pas former un jumeau éternel.
 
+```mermaid
+graph TB;
 
+subgraph Exemple de splitter
+    subgraph t0
+    00(a)
+    01(b)
+    02(c)
+    03(d)
 
+    00 --- 02
+    00 --- 01
+    end
 
+    subgraph t1
+    10(a)
+    11(b)
+    12(c)
+    13(d)
 
+    10 --- 12
+    10 --- 11
+    end
 
+    subgraph t2
+    20(a)
+    21(b)
+    22(c)
+    23(d)
+    end
 
+    subgraph t3
+    30(a)
+    31(b)
+    32(c)
+    33(d)
 
-
-
-
-
-
-
-
-
-
-Le **raffinement de partition** est une technique en algorithmie permettant de représenter une partition d'ensemble comme une structure de donnée qui permet d'affiner cet ensemble en plusieurs sous ensemble.
-
+    30 --- 31
+    32 --- 33
+    end
+end
 ```
-Algorithme de raffinement partition
-Nom : RP
-Entrée : Liste de liste d'entier L a raffiner, Liste d'entier S selon laquelle on va raffiner
-Sortie : Liste de liste d'entier représentant les partitions de l'ensemble
 
-L0 = [[0], [1], [2], [3], [4], [5], [6], [7]]
-S0 = [0, 3, 5]
+Dans cet exemple on peut observer le couple $(b, c)$. Si l'on applique la procédure décrite plus haut on voit qu'ils sont jumeaux dans $t0, t1, t2$ mais dans $t3$ si l'on prend par exemple $d$ comme splitter on observe qu'il n'y aucune arrête liant $a$ et $d$. Donc le couple $(b,c)$ ne forme pas un jumeau éternel. 
 
-RP(L0, S0) 
--> L1 = [[0, 3, 5], [1], [2], [4], [6], [7]] 
-S1 = [2, 4, 5]
+On voit ici qu'il est donc plus facile de déterminer dans quel cas des sommets ne forment **pas** un couple de jumeaux parfait que l'inverse.
 
-RP(L1, S1)
--> [[5], [0, 3], [2, 4], [1], [6], [7]]
-```
+Cette technique est le centre de l'algorithme et permet de se retrouver avec à la fin une matrice donnant l'ensemble des couples de jumeaux éternels.
 
-L'algorithme ici nommé `RP` va donc partitionner selon la règle $\{L \cap S, L\text{\\}S \}$. 
+Il est a noté que deux versions de cet algorithme existe : la version MEI pour *Matrix Edge Iteration* et MLEI pour *Matrix-less Edge Iteration*. Dans la première version une matrice d'adjacence est utilisée en entrée alors que dans la seconde l'entrée est juste l'ensemble d'arêtes $E$ donnée dans le désordre.
 
-Il est a noté que deux versions de cet algorithme existe : 
+#### Analyse
 
-### Analyse
+La complexité de cet algorithme en temps est de $O(m*n+n^2)$ quand il s'agit de l'implémentation avec la matrice soit MEI, lors de l'implémentation MLEI sans matrice la complexité temporelle augmente à $O(m^2*n+n^2)$ alors que la complexité spatiale passe de $O(n^2*\tau)$ en MEI à $O(m)$ avec MLEI.
 
-### Argumentation construite
+Le MEI pose problème car lorsque commence a devenir importante il n'est pas possible de faire s'exécuter le programme sans subir une erreur de RAM surchargée.
 
-### $\Delta$-TWINS
+De plus cet algorithme permet de prouver qu'on peut trouver les jumeaux éternels avec une complexité temporelle indépendante de la taille de l'historique $\tau$ du graphe temporel.
 
-### Présentation
+#### Argumentation construite
 
-### Analyse
+Cet algorithme permet de trouver dans un temps raisonnable l'ensemble des jumeaux éternels et avec un algorithme reposant sur des structures simple a implémenter.
 
-### Argumentation construite
+Par contre il ne permet pas en l'état de trouver de $\Delta$-jumeaux. On pourrait en l'appliquant à tous les sous-ensemble possible de $T$ s'en servir pour trouver des $\Delta$-jumeaux qui ne sont jamais que des jumeaux éternels dans un sous-ensemble de $T$, mais la complexité temporelle s'en retrouverait alors nettement plus accru.
+
+On va se retrouver avec une complexité de $O(2^\tau*(m*n+n^2))$ si on choisit l'implémentation MEI et $O(2^\tau*(m^2*n+n^2))$ pour l'implémentation MLEI, ces deux complexité temporels sont trop importantes.
+
+### Edge Iteration Algorithm for $\Delta$-twins listing
+
+#### Structure de donnée utilisée
+
+**Arbre rouge noir :** Aussi appelé "*arbre bicolore*". Il s'agit d'un arbre binaire spécial dont chaque nœud en plus d'embarquer sa valeur va embarquer une valeur pouvant être considérée comme sa couleur, rouge ou noir, qui lui permet le maintien de certaines propriétés entre les nœuds :
+
+- Un nœud est soit noir, soit rouge
+- Les enfants d'un nœud rouge sont noirs
+- La racine est noire
+- Tous les nœuds ont des enfants, s'ils n'embarquent pas de valeurs ce sont des feuilles ils sont marqué avec une valeur spéciale, classiquement NULL ou NIL. Leur couleur est dans tous les cas noire.
+-  Un chemin de la racine a une feuille a toujours le même nombre de nœuds noirs.
+
+L’intérêt de cet arbre est que les opérations d'insertion, de recherche et de suppression sont de complexité logarithmique.
+
+#### Présentation
+
+>**Entrées :** Graphe temporel $L : (T,V,E)$, un entier $\delta $
+>
+>**Sortie :** Liste de tous les $\Delta$-jumeaux
+
+L'objectif de cet algorithme est donc de sortir la liste des sommets composant des $\Delta$-Jumeaux dont le $\Delta$, soit le temps où ils sont jumeaux, est égal à $\delta$ passé en paramètre.
+
+Cet algorithme va se reposer sur un arbre rouge noir en l'adaptant quelque peu. En effet ici sur chaque nœud va représenter un intervalle de temps $P$, sous ensemble de $T$ et contenant lui même un sous ensemble $D$ étant une suite continue d'instants supprimés. Le deux fils du nœuds représentent l'intervalle de temps avant $D$ et après $D$.
+
+Cela signifie qu'à la fin pour savoir combien de $\Delta$-Jumeaux il existe il suffit de lire les feuilles. En effet elles finissent par représenter les intervalles de temps correspondant à la durée d'existence de ces jumeaux. 	
+
+#### Analyse
+
+Comme le précédent algorithme il existe deux implémentations de cet algorithme : MEI avec matrice d’adjacence et MLEI sans matrice d'adjacence. 
+
+La version MEI a une complexité de temps de $O(m*(n*log(\tau))+N)$ avec $n$ le nombre de sommets, $m$ le nombre d'arêtes $\tau$ la taille de l'historique et $N$ le nombre de pairs de $\Delta$-Jumeaux . Le $log(\tau)$ est introduit grâce à l'utilisation d'un arbre binaire rouge noir. Et complexité spatiale de $O(n^2 * \tau)$ a cause de l'utilisation de la matrice d'adjacence.
+
+La version MLEI va donc avoir une complexité temporelle de $O(m^2*(n * log(\tau)) + N )$  avec $n$ le nombre de sommets, $m$ le nombre d'arêtes $\tau$ la taille de l'historique et $N$ le nombre de pairs de $\Delta$-Jumeaux. La complexité spatiale est de $O(n^2 * log(\tau))$. 
+
+Comme pour le précédent algorithme, l'implémentation MEI est plus rapide que l'implémentation MLEI en effet $O(m*(n*log(\tau))+N) < O(m^2*(n * log(\tau)) + N )$ à cause du $m$ qui devient $m^2$, mais la complexité spatiale est à l'avantage de l'implémentation MLEI. 
+
+Il est a noté que la complexité spatiale de cet algorithme est plus importante que le précédent algorithme car il faut générer un arbre pour chaque paire de sommets.
+
+#### Argumentation construite
+
+Cet algorithme permet de trouver dans un temps particulièrement réduit l'ensemble des $\Delta$-Jumeaux d'un graphe temporelle. Il permet donc a priori de répondre à la problématique posée pour l'article.
+
+Néanmoins l'utilisation d'un arbre coloré rouge-noir le rend plus compliquer a implémenter que le précédent algorithme qui n'utilisais que des structures de données simples.
 
 ## Mon implémentation
 
 ### Présentation
+
+```
+Entrée : Graphe temporel G (T, V, E), entier d
+Sortie : Liste des delta-jumeaux dans G avec un delta de d
+
+potentialTwins = hashMap<entier correspondant à l'index t, liste de couples>
+adjList = convertir G en une liste de taille t de hashmap représentant chaque sommet en clef et une liste de voisins en valeur
+
+Pour t de (0 à |T|):
+	tListe = adjList[t]
+	verticeWithoutFriends = []
+	Pour sommet dans V:
+        Si tList[sommet] != vide:
+            Raffine à l'aide, du raffinement par partition, tListe avec la liste de sommet tListe[sommet]
+        Sinon:
+			Ajoute sommet a verticeWithoutFriends
+		
+	Récupère la liste raffinée, pour chaque élément de la liste raffiné de taille > 2 on créer une énumération de ces n 		sommets et on stock l'ensemble  dans potentialTwins[t]
+	
+	Génère l'ensemble des couples possible avec les sommets de verticeWithoutFriends si len(verticeWithoutFriends) > 1 et les 	  ajoute a potentialTwins[t]
+
+twinsIteration = hashMap<jumeaux, Paire<entier, entier>>
+Pour t de (0 à |T|):
+	pTwin = potentialTwins[t]
+	Si twinsIteration[pTwin] == null:
+		twinsIteration[pTwin] = <0, t>
+	Sinon
+		Si twinsIteration[pTwin][1] == t - 1:
+			twinsIteration[pTwin][0] += 1
+			twinsIteration[pTwin][1] = t
+
+res = liste de jumeaux
+Pour chaque élément el dans twinsIteration:
+	Si el[0] >= d:
+		Ajouter el à res
+
+retourner res
+```
+
+
 
 ### Analyse
 
